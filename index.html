@@ -3,83 +3,193 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Vladislav Lanskikh</title>
+  <meta name="description" content="Photography and visual art by Vladislav Lanskikh.">
 
   <style>
-    html, body {
+    :root {
+      --bg: #fafafa;
+      --text: #111111;
+      --muted: #5f5f5f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
       margin: 0;
-      height: 100%;
+      min-height: 100%;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f3f3f0;
-      color: #111;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     main {
-      width: min(760px, calc(100% - 48px));
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: clamp(32px, 7vw, 110px);
+    }
+
+    .intro {
+      width: min(820px, 100%);
+      transform: translateY(-2vh);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(42px, 8vw, 88px);
+      max-width: 760px;
+
+      font-family:
+        Didot,
+        "Bodoni MT",
+        "Times New Roman",
+        Times,
+        serif;
+
+      font-size: clamp(72px, 10vw, 158px);
       font-weight: 400;
-      letter-spacing: -0.05em;
-      line-height: 0.95;
+      line-height: 0.82;
+      letter-spacing: -0.065em;
     }
 
-    p {
-      margin: 24px 0 0;
-      font-size: 15px;
-      line-height: 1.5;
+    h1 span {
+      display: block;
+    }
+
+    .discipline {
+      margin: clamp(28px, 4vw, 52px) 0 0;
+      font-size: clamp(12px, 1.1vw, 16px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.31em;
+      text-transform: uppercase;
+      color: #242424;
     }
 
     .links {
       display: flex;
-      gap: 18px;
-      margin-top: 28px;
+      align-items: center;
+      gap: 28px;
+      margin-top: clamp(74px, 10vh, 126px);
+
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
     }
 
     .links a {
-      color: inherit;
+      position: relative;
+      color: var(--text);
       text-decoration: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-      padding-bottom: 2px;
     }
 
-    .links a:hover {
-      border-bottom-color: #111;
+    .links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 180ms ease;
     }
 
-    .muted {
-      margin-top: 64px;
-      opacity: 0.45;
-      font-size: 13px;
+    .links a:hover::after,
+    .links a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .separator {
+      width: 36px;
+      height: 1px;
+      background: #777;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        align-items: flex-start;
+        padding: 22vh 24px 48px;
+      }
+
+      .intro {
+        transform: none;
+      }
+
+      h1 {
+        font-size: clamp(58px, 20vw, 96px);
+        line-height: 0.85;
+      }
+
+      .discipline {
+        margin-top: 26px;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+      }
+
+      .links {
+        margin-top: 72px;
+        gap: 18px;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+      }
+
+      .separator {
+        width: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .links a::after {
+        transition: none;
+      }
     }
   </style>
 </head>
 
 <body>
   <main>
-    <h1>Vladislav<br>Lanskikh</h1>
+    <section class="intro" aria-label="Introduction">
+      <h1>
+        <span>Vladislav</span>
+        <span>Lanskikh</span>
+      </h1>
 
-    <p>Photography / visual art</p>
+      <p class="discipline">Photography / Visual Art</p>
 
-    <div class="links">
-      <a href="https://www.instagram.com/vlans.ph/" target="_blank" rel="noopener noreferrer">
-        Instagram
-      </a>
+      <nav class="links" aria-label="Social links">
+        <a
+          href="https://www.instagram.com/vlans.ph/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram
+        </a>
 
-      <a href="https://t.me/lansvlad" target="_blank" rel="noopener noreferrer">
-        Telegram
-      </a>
-    </div>
+        <span class="separator" aria-hidden="true"></span>
 
-    <p class="muted">Portfolio coming soon.</p>
+        <a
+          href="https://t.me/lansvlad"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Telegram
+        </a>
+      </nav>
+    </section>
   </main>
 </body>
 </html>
