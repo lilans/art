@@ -7,11 +7,16 @@
   <title>Vladislav Lanskikh</title>
   <meta name="description" content="Photography and visual art by Vladislav Lanskikh.">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #fafafa;
+      --bg: #ffffff;
       --text: #111111;
-      --muted: #5f5f5f;
+      --muted: #6f6f6f;
+      --rule: #d9d9d9;
     }
 
     * {
@@ -28,133 +33,146 @@
       min-height: 100vh;
       background: var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
     main {
       min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 30px 36px 30px;
+    }
+
+    header,
+    footer {
       display: flex;
-      align-items: center;
-      padding: clamp(32px, 7vw, 110px);
-    }
-
-    .intro {
-      width: min(820px, 100%);
-      transform: translateY(-2vh);
-    }
-
-    h1 {
-      margin: 0;
-      max-width: 760px;
-
-      font-family:
-        Didot,
-        "Bodoni MT",
-        "Times New Roman",
-        Times,
-        serif;
-
-      font-size: clamp(72px, 10vw, 158px);
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
       font-weight: 400;
-      line-height: 0.82;
-      letter-spacing: -0.065em;
     }
 
-    h1 span {
+    header {
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .status {
+      color: var(--muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 310px);
+      gap: 8vw;
+      align-items: center;
+      padding: 9vh 3vw 10vh;
+    }
+
+    .name {
+      margin: 0;
+      max-width: 920px;
+      font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+      font-size: clamp(58px, 8.2vw, 132px);
+      font-weight: 300;
+      line-height: 0.93;
+      letter-spacing: -0.055em;
+    }
+
+    .name span {
       display: block;
     }
 
+    .meta {
+      align-self: end;
+      padding-bottom: 0.8em;
+    }
+
+    .meta p {
+      margin: 0;
+    }
+
     .discipline {
-      margin: clamp(28px, 4vw, 52px) 0 0;
-      font-size: clamp(12px, 1.1vw, 16px);
+      font-size: 11px;
+      line-height: 1.6;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
       font-weight: 400;
-      line-height: 1;
-      letter-spacing: 0.31em;
-      text-transform: uppercase;
-      color: #242424;
     }
 
-    .links {
+    .note {
+      max-width: 255px;
+      margin-top: 28px !important;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    footer {
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+    }
+
+    nav {
       display: flex;
-      align-items: center;
-      gap: 28px;
-      margin-top: clamp(74px, 10vh, 126px);
-
-      font-size: 12px;
-      line-height: 1;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
+      gap: 26px;
     }
 
-    .links a {
-      position: relative;
-      color: var(--text);
+    a {
+      color: inherit;
       text-decoration: none;
     }
 
-    .links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 100%;
-      height: 1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 180ms ease;
+    a:hover,
+    a:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
     }
 
-    .links a:hover::after,
-    .links a:focus-visible::after {
-      transform: scaleX(1);
-      transform-origin: left;
+    .year {
+      color: var(--muted);
     }
 
-    .separator {
-      width: 36px;
-      height: 1px;
-      background: #777;
-    }
-
-    @media (max-width: 700px) {
+    @media (max-width: 760px) {
       main {
+        padding: 22px 20px 24px;
+      }
+
+      header {
+        font-size: 9px;
+        letter-spacing: 0.14em;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 52px;
+        padding: 18vh 0 12vh;
+      }
+
+      .name {
+        font-size: clamp(54px, 17vw, 90px);
+        line-height: 0.92;
+      }
+
+      .meta {
+        align-self: auto;
+        padding: 0;
+      }
+
+      footer {
+        flex-direction: column;
         align-items: flex-start;
-        padding: 22vh 24px 48px;
-      }
-
-      .intro {
-        transform: none;
-      }
-
-      h1 {
-        font-size: clamp(58px, 20vw, 96px);
-        line-height: 0.85;
-      }
-
-      .discipline {
-        margin-top: 26px;
-        font-size: 11px;
-        letter-spacing: 0.22em;
-      }
-
-      .links {
-        margin-top: 72px;
-        gap: 18px;
-        font-size: 10px;
-        letter-spacing: 0.18em;
-      }
-
-      .separator {
-        width: 24px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .links a::after {
-        transition: none;
+        font-size: 9px;
+        letter-spacing: 0.14em;
       }
     }
   </style>
@@ -162,34 +180,37 @@
 
 <body>
   <main>
-    <section class="intro" aria-label="Introduction">
-      <h1>
+    <header>
+      <div>Vladislav Lanskikh</div>
+      <div class="status">Photography / Visual Art</div>
+    </header>
+
+    <section class="hero">
+      <h1 class="name">
         <span>Vladislav</span>
         <span>Lanskikh</span>
       </h1>
 
-      <p class="discipline">Photography / Visual Art</p>
+      <div class="meta">
+        <p class="discipline">
+          Artist &amp; photographer<br>
+          based in Saint Petersburg
+        </p>
 
-      <nav class="links" aria-label="Social links">
-        <a
-          href="https://www.instagram.com/vlans.ph/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Instagram
-        </a>
-
-        <span class="separator" aria-hidden="true"></span>
-
-        <a
-          href="https://t.me/lansvlad"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Telegram
-        </a>
-      </nav>
+        <p class="note">
+          Selected works, texts and ongoing projects.
+        </p>
+      </div>
     </section>
+
+    <footer>
+      <nav aria-label="Social links">
+        <a href="https://www.instagram.com/vlans.ph/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://t.me/lansvlad" target="_blank" rel="noopener noreferrer">Telegram</a>
+      </nav>
+
+      <div class="year">2026</div>
+    </footer>
   </main>
 </body>
 </html>
