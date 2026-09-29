@@ -5,8 +5,7 @@ Pure static HTML/CSS/JS. No build step required.
 Files:
 - index.html — home
 - work.html — projects index
-- project-slava-bogu.html — sample project template
-- text.html — text index
+- project-slava-bogu.html — integrated photography + text project template
 - archive.html — exhibitions/publications/open calls
 - info.html — biography/contact
 - assets/styles.css — shared design

@@ -694,3 +694,110 @@ body.language-changing [data-i18n] { opacity: 0; }
     font-size: 10px;
   }
 }
+
+
+/* Integrated project narrative */
+.project-head-integrated {
+  grid-template-columns: minmax(210px, 290px) minmax(0, 1fr);
+  align-items: start;
+}
+
+.project-meta-compact {
+  margin: 46px 0 0;
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 9px 18px;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.project-meta-compact dt {
+  margin: 0;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .11em;
+  font-size: 9px;
+}
+
+.project-meta-compact dd { margin: 0; }
+
+.project-sequence-integrated {
+  display: grid;
+  gap: clamp(82px, 12vh, 150px);
+  padding-bottom: 6vh;
+}
+
+.sequence-block { margin: 0; }
+
+.image-block .image-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.image-large { width: min(100%, 930px); }
+
+.image-small-right {
+  width: min(70%, 620px);
+  margin-left: auto;
+}
+
+.image-medium-left { width: min(82%, 760px); }
+
+.text-fragment {
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.62;
+  letter-spacing: -.012em;
+}
+
+.text-fragment p,
+.project-endnote p { margin: 0; }
+
+.text-fragment-wide {
+  width: min(76%, 720px);
+  margin-left: 7%;
+}
+
+.text-fragment-narrow {
+  width: min(54%, 520px);
+  margin-left: auto;
+  margin-right: 8%;
+}
+
+.black-pause {
+  width: 100%;
+  min-height: clamp(300px, 48vw, 690px);
+  background: #090909;
+}
+
+.project-endnote {
+  width: min(56%, 560px);
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  .project-head-integrated {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+
+  .project-meta-compact { margin-top: 30px; }
+  .project-sequence-integrated { gap: 72px; }
+
+  .image-large,
+  .image-small-right,
+  .image-medium-left,
+  .text-fragment-wide,
+  .text-fragment-narrow,
+  .project-endnote {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .text-fragment { font-size: 18px; }
+  .black-pause { min-height: 72vw; }
+}

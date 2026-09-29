@@ -3,7 +3,6 @@ const copy = {
     common: {
       identity: "Vladislav Lanskikh",
       navWork: "Work",
-      navText: "Text",
       navArchive: "Archive",
       navInfo: "Info",
       socialsInstagram: "Instagram",
@@ -23,9 +22,8 @@ const copy = {
       indexInfo: "Info",
       practiceKicker: "Photography / Visual Art",
       practiceTitle: "Photography, text<br>and personal archive.",
-      practiceDescription: "Selected works, texts and ongoing projects. Based in Saint Petersburg.",
-      workNote: "Selected photographic projects",
-      textNote: "Autofiction and short prose",
+      practiceDescription: "Projects in which images and autofictional text form a single sequence. Based in Saint Petersburg.",
+      workNote: "Projects: photography + text",
       archiveNote: "Exhibitions, publications, open calls",
       infoNote: "Bio, contacts and links"
     },
@@ -87,7 +85,10 @@ const copy = {
       statusLabel: "Status",
       status: "Ongoing project",
       noteLabel: "Note",
-      note: "Replace the placeholders with the final image sequence."
+      note: "Replace the placeholders with the final image sequence.",
+      fragment1: "Text fragment. In the final project this is not a caption, but an equal part of the sequence.",
+      fragment2: "Another fragment can interrupt the visual rhythm, change the pace and reframe what came before.",
+      projectEndnote: "The final order of images, pauses and text fragments defines the work."
     }
   },
 
@@ -95,7 +96,6 @@ const copy = {
     common: {
       identity: "Владислав Ланских",
       navWork: "Работы",
-      navText: "Тексты",
       navArchive: "Архив",
       navInfo: "Инфо",
       socialsInstagram: "Instagram",
@@ -115,9 +115,8 @@ const copy = {
       indexInfo: "Инфо",
       practiceKicker: "Фотография / визуальное искусство",
       practiceTitle: "Фотография, текст<br>и личный архив.",
-      practiceDescription: "Избранные работы, тексты и проекты в процессе. Санкт-Петербург.",
-      workNote: "Избранные фотографические проекты",
-      textNote: "Автофикция и короткая проза",
+      practiceDescription: "Проекты, в которых изображения и автофикциональный текст образуют единую последовательность. Санкт-Петербург.",
+      workNote: "Проекты: фотография + текст",
       archiveNote: "Выставки, публикации, опен-коллы",
       infoNote: "Биография, контакты и ссылки"
     },
@@ -179,7 +178,10 @@ const copy = {
       statusLabel: "Статус",
       status: "Проект в процессе",
       noteLabel: "Примечание",
-      note: "Замени заглушки финальной последовательностью изображений."
+      note: "Замени заглушки финальной последовательностью изображений.",
+      fragment1: "Фрагмент текста. В финальном проекте это не подпись к фотографии, а равноправная часть последовательности.",
+      fragment2: "Другой фрагмент может прерывать визуальный ритм, менять темп и переопределять то, что было показано до него.",
+      projectEndnote: "Финальный порядок изображений, пауз и текстовых фрагментов и формирует произведение."
     }
   }
 };
