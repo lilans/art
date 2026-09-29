@@ -10,8 +10,9 @@
   <meta property="og:title" content="Vladislav Lanskikh">
   <meta property="og:description" content="Photography and visual art by Vladislav Lanskikh.">
   <meta property="og:url" content="https://lanskikh.art/">
-  <!-- 1200x630 cover for link previews (Telegram etc.):
-  <meta property="og:image" content="https://lanskikh.art/assets/og.jpg"> -->
+  <meta property="og:image" content="https://lanskikh.art/assets/images/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,12 +45,34 @@
       </div>
     </header>
 
-    <section class="home-sections" aria-label="Main sections">
-      <nav class="home-nav">
+    <section class="home-cover">
+      <nav class="home-nav" aria-label="Main sections">
         <a href="work.html" data-preserve-lang data-i18n="indexWork">Work</a>
         <a href="archive.html" data-preserve-lang data-i18n="indexArchive">Archive</a>
         <a href="info.html" data-preserve-lang data-i18n="indexInfo">Info</a>
       </nav>
+
+      <figure class="cover">
+        <a class="cover-image" href="project-slava-bogu.html" data-preserve-lang tabindex="-1">
+          <picture>
+            <source media="(max-width: 760px)" srcset="assets/images/home-cover-mobile.jpg" width="900" height="1125">
+            <img
+              src="assets/images/home-cover-1000.jpg"
+              srcset="assets/images/home-cover-1000.jpg 1000w, assets/images/home-cover-1600.jpg 1600w"
+              sizes="(max-width: 760px) 100vw, 52vh"
+              width="1000" height="1333"
+              alt="A CRT television on a refrigerator in a kitchen corner; archival footage of a building on the screen."
+              data-i18n-alt="coverAlt"
+              fetchpriority="high" decoding="async">
+          </picture>
+        </a>
+        <figcaption>
+          <a class="cover-caption" href="project-slava-bogu.html" data-preserve-lang>
+            <span class="cover-title" data-i18n="coverTitle">Thank God You're Leaving</span>
+            <span class="cover-year">2026</span>
+          </a>
+        </figcaption>
+      </figure>
     </section>
 
     <footer class="footer">

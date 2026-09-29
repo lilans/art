@@ -20,6 +20,8 @@ const copy = {
       indexText: "Text",
       indexArchive: "Archive",
       indexInfo: "Info",
+      coverTitle: "Thank God You're Leaving",
+      coverAlt: "A CRT television on a refrigerator in a kitchen corner; archival footage of a building on the screen.",
       practiceKicker: "Photography / Visual Art",
       practiceTitle: "Photography, text<br>and personal archive.",
       practiceDescription: "Projects in which images and autofictional text form a single sequence. Based in Saint Petersburg.",
@@ -116,6 +118,8 @@ const copy = {
       indexText: "Тексты",
       indexArchive: "Архив",
       indexInfo: "Инфо",
+      coverTitle: "Слава богу, что ты уедешь",
+      coverAlt: "Кинескопный телевизор на холодильнике в углу кухни; на экране архивная съёмка здания.",
       practiceKicker: "Фотография / визуальное искусство",
       practiceTitle: "Фотография, текст<br>и личный архив.",
       practiceDescription: "Проекты, в которых изображения и автофикциональный текст образуют единую последовательность. Санкт-Петербург.",
@@ -228,6 +232,11 @@ function applyLanguage(language, updateUrl) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const value = lookup(language, el.dataset.i18n);
     if (value !== "") el.innerHTML = value;
+  });
+
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    const value = lookup(language, el.dataset.i18nAlt);
+    if (value !== "") el.alt = value;
   });
 
   const title = lookup(language, "title");

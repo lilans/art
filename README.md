@@ -24,3 +24,9 @@ Project page:
 - Each frame sets its own size and side in HTML: `frame-large` (left, full), `frame-medium` (left, ~82%), `frame-small` (right, ~70%). Change the class to change the rhythm.
 - To add an image, replace the placeholder div in a frame with the commented `<img>` line. Images are capped at 88vh, so vertical frames never exceed the screen.
 - Text keys `text1`–`text5` live in assets/site.js (EN and RU).
+
+Home cover:
+- assets/images/home-cover-1000.jpg / -1600.jpg — desktop (full frame, srcset)
+- assets/images/home-cover-mobile.jpg — tighter 4:5 crop for ≤760px, so the TV screen stays readable
+- assets/images/og.jpg — 1200×630 link preview, used on all pages
+- Caption text and alt live in site.js (`coverTitle`, `coverAlt`).
