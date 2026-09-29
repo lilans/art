@@ -198,7 +198,7 @@ function initialLanguage() {
   const saved = localStorage.getItem("site-language");
   if (saved === "en" || saved === "ru") return saved;
 
-  return navigator.language.toLowerCase().startsWith("ru") ? "ru" : "en";
+  return "en";
 }
 
 function lookup(language, key) {
@@ -277,3 +277,45 @@ document.querySelectorAll("[data-project-tab]").forEach((button) => {
 });
 
 setLanguage(initialLanguage(), false);
+
+
+function initialTheme() {
+  const saved = localStorage.getItem("site-theme");
+  if (saved === "dark" || saved === "light") return saved;
+
+  return window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+}
+
+function setTheme(theme) {
+  if (theme !== "dark" && theme !== "light") return;
+
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem("site-theme", theme);
+
+  const button = document.querySelector(".theme-toggle");
+  if (button) {
+    const dark = theme === "dark";
+    button.setAttribute(
+      "aria-label",
+      dark ? "Switch to light theme" : "Switch to dark theme"
+    );
+    button.setAttribute(
+      "title",
+      dark ? "Light theme" : "Dark theme"
+    );
+  }
+}
+
+const themeToggle = document.querySelector(".theme-toggle");
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const current = document.documentElement.dataset.theme || initialTheme();
+    setTheme(current === "dark" ? "light" : "dark");
+  });
+}
+
+setTheme(initialTheme());

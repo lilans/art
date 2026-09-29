@@ -5,6 +5,8 @@
   --rule: #dddddd;
   --soft: #f4f4f1;
   --soft-2: #ecece8;
+  --hover: #fafafa;
+  --black-pause: #090909;
   --max: 1500px;
 }
 
@@ -217,7 +219,7 @@ button { font: inherit; color: inherit; }
 }
 
 .index-row:hover {
-  background: #fafafa;
+  background: var(--hover);
 }
 
 .index-no,
@@ -624,7 +626,7 @@ body.language-changing [data-i18n] { opacity: 0; }
 .home-directory > a:hover,
 .home-directory > a:focus-visible {
   padding-left: 10px;
-  background: #fafafa;
+  background: var(--hover);
 }
 
 .directory-no {
@@ -766,7 +768,7 @@ body.language-changing [data-i18n] { opacity: 0; }
 .black-pause {
   width: 100%;
   min-height: clamp(300px, 48vw, 690px);
-  background: #090909;
+  background: var(--black-pause);
 }
 
 .project-endnote {
@@ -832,4 +834,84 @@ body.language-changing [data-i18n] { opacity: 0; }
 .info-links a:hover .social-icon,
 .info-links a:focus-visible .social-icon {
   opacity: .55;
+}
+
+
+/* Theme */
+html[data-theme="dark"] {
+  --bg: #111111;
+  --text: #ededeb;
+  --muted: #9b9b96;
+  --rule: #343432;
+  --soft: #1b1b1a;
+  --soft-2: #242422;
+  --hover: #171716;
+  --black-pause: #000000;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+.theme-toggle {
+  width: 18px;
+  height: 18px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.theme-icon {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--muted);
+}
+
+body,
+.header,
+.footer,
+.home-directory > a,
+.index-row,
+.image-placeholder {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .header,
+  .footer,
+  .home-directory > a,
+  .index-row,
+  .image-placeholder {
+    transition: none;
+  }
 }
