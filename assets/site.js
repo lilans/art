@@ -20,7 +20,14 @@ const copy = {
       indexWork: "Work",
       indexText: "Text",
       indexArchive: "Archive",
-      indexInfo: "Info"
+      indexInfo: "Info",
+      practiceKicker: "Photography / Visual Art",
+      practiceTitle: "Photography, text<br>and personal archive.",
+      practiceDescription: "Selected works, texts and ongoing projects. Based in Saint Petersburg.",
+      workNote: "Selected photographic projects",
+      textNote: "Autofiction and short prose",
+      archiveNote: "Exhibitions, publications, open calls",
+      infoNote: "Bio, contacts and links"
     },
     work: {
       title: "Work — Vladislav Lanskikh",
@@ -105,7 +112,14 @@ const copy = {
       indexWork: "Работы",
       indexText: "Тексты",
       indexArchive: "Архив",
-      indexInfo: "Инфо"
+      indexInfo: "Инфо",
+      practiceKicker: "Фотография / визуальное искусство",
+      practiceTitle: "Фотография, текст<br>и личный архив.",
+      practiceDescription: "Избранные работы, тексты и проекты в процессе. Санкт-Петербург.",
+      workNote: "Избранные фотографические проекты",
+      textNote: "Автофикция и короткая проза",
+      archiveNote: "Выставки, публикации, опен-коллы",
+      infoNote: "Биография, контакты и ссылки"
     },
     work: {
       title: "Работы — Владислав Ланских",

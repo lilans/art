@@ -10,68 +10,92 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
+
 <body data-page="home">
   <main class="site">
-    
-<header class="header">
-  <a class="identity" href="index.html" data-preserve-lang data-i18n="identity">Vladislav Lanskikh</a>
-  <div class="header-right">
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="work.html" data-preserve-lang data-i18n="navWork">Work</a>
-      <a href="text.html" data-preserve-lang data-i18n="navText">Text</a>
-      <a href="archive.html" data-preserve-lang data-i18n="navArchive">Archive</a>
-      <a href="info.html" data-preserve-lang data-i18n="navInfo">Info</a>
-    </nav>
-    <div class="lang" aria-label="Language">
-      <button type="button" data-language="en" aria-pressed="true">EN</button>
-      <span class="slash">/</span>
-      <button type="button" data-language="ru" aria-pressed="false">RU</button>
-    </div>
-  </div>
-</header>
+    <header class="header">
+      <a class="identity" href="index.html" data-preserve-lang data-i18n="identity">Vladislav Lanskikh</a>
 
-    
-<section>
-  <div class="home-hero">
-    <h1 class="home-name">
-      <span data-i18n="firstName">Vladislav</span>
-      <span data-i18n="lastName">Lanskikh</span>
-    </h1>
+      <div class="header-right">
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="work.html" data-preserve-lang data-i18n="navWork">Work</a>
+          <a href="text.html" data-preserve-lang data-i18n="navText">Text</a>
+          <a href="archive.html" data-preserve-lang data-i18n="navArchive">Archive</a>
+          <a href="info.html" data-preserve-lang data-i18n="navInfo">Info</a>
+        </nav>
 
-    <div class="home-meta">
-      <p class="role" data-i18n="role">Artist &amp; photographer<br>based in Saint Petersburg</p>
-      <p class="home-intro" data-i18n="intro">
-        Photography, text and personal archive. Selected works and ongoing projects.
-      </p>
-    </div>
-  </div>
+        <div class="lang" aria-label="Language">
+          <button type="button" data-language="en" aria-pressed="true">EN</button>
+          <span class="slash">/</span>
+          <button type="button" data-language="ru" aria-pressed="false">RU</button>
+        </div>
+      </div>
+    </header>
 
-  <nav class="home-index" aria-label="Sections">
-    <a href="work.html" data-preserve-lang>
-      <span>01</span><span class="index-title" data-i18n="indexWork">Work</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="text.html" data-preserve-lang>
-      <span>02</span><span class="index-title" data-i18n="indexText">Text</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="archive.html" data-preserve-lang>
-      <span>03</span><span class="index-title" data-i18n="indexArchive">Archive</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="info.html" data-preserve-lang>
-      <span>04</span><span class="index-title" data-i18n="indexInfo">Info</span><span class="index-arrow">↗</span>
-    </a>
-  </nav>
-</section>
+    <section class="home-overview">
+      <div class="home-practice">
+        <p class="home-kicker" data-i18n="practiceKicker">Photography / Visual Art</p>
 
-    
-<footer class="footer">
-  <nav class="socials" aria-label="Social links">
-    <a href="https://www.instagram.com/vlans.ph/" target="_blank" rel="noopener noreferrer" data-i18n="socialsInstagram">Instagram</a>
-    <a href="https://t.me/lansvlad" target="_blank" rel="noopener noreferrer" data-i18n="socialsTelegram">Telegram</a>
-  </nav>
-  <div class="footer-note" data-i18n="footer">2026 / Portfolio in progress</div>
-</footer>
+        <h1 class="home-statement" data-i18n="practiceTitle">
+          Photography, text<br>
+          and personal archive.
+        </h1>
 
+        <p class="home-description" data-i18n="practiceDescription">
+          Selected works, texts and ongoing projects.
+          Based in Saint Petersburg.
+        </p>
+      </div>
+
+      <nav class="home-directory" aria-label="Site sections">
+        <a href="work.html" data-preserve-lang>
+          <span class="directory-no">01</span>
+          <span class="directory-main">
+            <span class="directory-title" data-i18n="indexWork">Work</span>
+            <span class="directory-note" data-i18n="workNote">Selected photographic projects</span>
+          </span>
+          <span class="directory-arrow">↗</span>
+        </a>
+
+        <a href="text.html" data-preserve-lang>
+          <span class="directory-no">02</span>
+          <span class="directory-main">
+            <span class="directory-title" data-i18n="indexText">Text</span>
+            <span class="directory-note" data-i18n="textNote">Autofiction and short prose</span>
+          </span>
+          <span class="directory-arrow">↗</span>
+        </a>
+
+        <a href="archive.html" data-preserve-lang>
+          <span class="directory-no">03</span>
+          <span class="directory-main">
+            <span class="directory-title" data-i18n="indexArchive">Archive</span>
+            <span class="directory-note" data-i18n="archiveNote">Exhibitions, publications, open calls</span>
+          </span>
+          <span class="directory-arrow">↗</span>
+        </a>
+
+        <a href="info.html" data-preserve-lang>
+          <span class="directory-no">04</span>
+          <span class="directory-main">
+            <span class="directory-title" data-i18n="indexInfo">Info</span>
+            <span class="directory-note" data-i18n="infoNote">Bio, contacts and links</span>
+          </span>
+          <span class="directory-arrow">↗</span>
+        </a>
+      </nav>
+    </section>
+
+    <footer class="footer">
+      <nav class="socials" aria-label="Social links">
+        <a href="https://www.instagram.com/vlans.ph/" target="_blank" rel="noopener noreferrer" data-i18n="socialsInstagram">Instagram</a>
+        <a href="https://t.me/lansvlad" target="_blank" rel="noopener noreferrer" data-i18n="socialsTelegram">Telegram</a>
+      </nav>
+
+      <div class="footer-note" data-i18n="footer">2026 / Portfolio in progress</div>
+    </footer>
   </main>
+
   <script src="assets/site.js"></script>
 </body>
 </html>
