@@ -801,3 +801,35 @@ body.language-changing [data-i18n] { opacity: 0; }
   .text-fragment { font-size: 18px; }
   .black-pause { min-height: 72vw; }
 }
+
+
+/* Social icons */
+.socials a,
+.info-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-icon path {
+  fill: currentColor;
+  stroke: none;
+}
+
+.socials a:hover .social-icon,
+.socials a:focus-visible .social-icon,
+.info-links a:hover .social-icon,
+.info-links a:focus-visible .social-icon {
+  opacity: .55;
+}
