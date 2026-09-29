@@ -43,9 +43,9 @@ button { font: inherit; color: inherit; }
   align-items: baseline;
   justify-content: space-between;
   gap: 28px;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1;
-  letter-spacing: .18em;
+  letter-spacing: .16em;
   text-transform: uppercase;
   font-weight: 400;
 }
@@ -225,7 +225,7 @@ button { font: inherit; color: inherit; }
 .index-year,
 .index-type {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
@@ -335,7 +335,7 @@ button { font: inherit; color: inherit; }
 
 .project-year {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: .14em;
 }
 
@@ -353,7 +353,7 @@ button { font: inherit; color: inherit; }
   background: transparent;
   cursor: pointer;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: .14em;
   text-transform: uppercase;
 }
@@ -372,11 +372,6 @@ button { font: inherit; color: inherit; }
 
 .project-panel[hidden] { display: none; }
 
-.sequence {
-  display: grid;
-  gap: 11vh;
-}
-
 .image-placeholder {
   background: var(--soft);
   display: grid;
@@ -385,32 +380,6 @@ button { font: inherit; color: inherit; }
   font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
-}
-
-.sequence .image-placeholder {
-  width: min(100%, 920px);
-  aspect-ratio: 4 / 3;
-}
-
-.sequence .image-placeholder:nth-child(even) {
-  width: min(76%, 700px);
-  margin-left: auto;
-}
-
-.grid-view {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.grid-view .image-placeholder {
-  aspect-ratio: 4 / 3;
-}
-
-.project-text {
-  max-width: 760px;
-  font-size: clamp(17px, 1.5vw, 21px);
-  line-height: 1.62;
 }
 
 .project-info {
@@ -461,15 +430,22 @@ body.language-changing [data-i18n] { opacity: 0; }
   .site { padding: 22px 20px 24px; }
 
   .header {
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 22px 20px;
   }
 
-  .header-right {
-    gap: 18px;
-  }
+  .header-right { display: contents; }
+
+  .identity { grid-row: 1; grid-column: 1; }
+  .lang { grid-row: 1; grid-column: 2; }
+  .theme-toggle { grid-row: 1; grid-column: 3; }
 
   .nav {
-    display: none;
+    grid-row: 2;
+    grid-column: 1 / -1;
+    gap: 26px;
   }
 
   .home-hero {
@@ -529,16 +505,6 @@ body.language-changing [data-i18n] { opacity: 0; }
     flex-wrap: wrap;
     gap: 18px;
     margin-top: 28px;
-  }
-
-  .sequence .image-placeholder,
-  .sequence .image-placeholder:nth-child(even) {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .grid-view {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .project-info {
@@ -720,19 +686,43 @@ body.language-changing [data-i18n] { opacity: 0; }
 
 .sequence-block { margin: 0; }
 
-.image-block .image-placeholder {
+/* Frames: size and side are set per frame in the HTML, not by position.
+   frame-large  — left, full column
+   frame-medium — left, ~82%
+   frame-small  — right, ~70%                                        */
+.frame {
+  display: flex;
+  flex-direction: column;
+}
+
+.frame-large { width: min(100%, 930px); }
+.frame-medium { width: min(82%, 760px); }
+
+.frame-small {
+  width: min(70%, 620px);
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+/* Real images: never taller than the screen, whatever the orientation. */
+.frame img {
+  display: block;
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+}
+
+.frame .image-placeholder {
   width: 100%;
   aspect-ratio: 4 / 3;
 }
 
-.image-large { width: min(100%, 930px); }
-
-.image-small-right {
-  width: min(70%, 620px);
-  margin-left: auto;
+/* Portrait placeholder, capped by screen height like a real vertical image. */
+.frame .image-placeholder.is-portrait {
+  width: min(100%, calc(88vh * 4 / 5));
+  aspect-ratio: 4 / 5;
 }
-
-.image-medium-left { width: min(82%, 760px); }
 
 .text-fragment {
   font-size: clamp(18px, 1.7vw, 24px);
@@ -778,9 +768,9 @@ body.language-changing [data-i18n] { opacity: 0; }
   .project-meta-compact { margin-top: 30px; }
   .project-sequence-integrated { gap: 72px; }
 
-  .image-large,
-  .image-small-right,
-  .image-medium-left,
+  .frame-large,
+  .frame-small,
+  .frame-medium,
   .text-fragment-wide,
   .text-fragment-narrow,
   .project-endnote {
@@ -788,6 +778,8 @@ body.language-changing [data-i18n] { opacity: 0; }
     margin-left: 0;
     margin-right: 0;
   }
+
+  .frame-small { align-items: flex-start; }
 
   .text-fragment { font-size: 18px; }
   .black-pause { min-height: 72vw; }
@@ -932,7 +924,7 @@ body,
 
 .info-label {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1;
   letter-spacing: .17em;
   text-transform: uppercase;
@@ -1099,3 +1091,17 @@ body[data-page="home"] .header-right {
     font-size: 20px;
   }
 }
+
+
+/* Larger hit areas for small controls without changing their look. */
+.theme-toggle { position: relative; }
+
+.lang button::before,
+.theme-toggle::before,
+.nav a::before {
+  content: "";
+  position: absolute;
+  inset: -14px -5px;
+}
+
+.theme-toggle::before { inset: -13px; }

@@ -78,11 +78,12 @@ const copy = {
       description: "A photography and autofiction project by Vladislav Lanskikh.",
       projectTitle: "Thank God<br>You're Leaving",
       sequence: "Sequence",
-      grid: "Grid",
-      text: "Text",
       info: "Info",
-      placeholder: "Image",
-      body: "This page is prepared for the final project text. The layout is intentionally quiet: the text can sit beside the photographic sequence without becoming an illustration or caption.",
+      text1: "Text 01 — follows frame 04.",
+      text2: "Text 02 — follows frame 08.",
+      text3: "Text 03 — follows frame 14.",
+      text4: "Text 04 — follows frame 19.",
+      text5: "Text 05 — follows frame 23.",
       mediumLabel: "Medium",
       medium: "Photography / Autofiction",
       yearLabel: "Year",
@@ -90,10 +91,7 @@ const copy = {
       statusLabel: "Status",
       status: "Ongoing project",
       noteLabel: "Note",
-      note: "Replace the placeholders with the final image sequence.",
-      fragment1: "Text fragment. In the final project this is not a caption, but an equal part of the sequence.",
-      fragment2: "Another fragment can interrupt the visual rhythm, change the pace and reframe what came before.",
-      projectEndnote: "The final order of images, pauses and text fragments defines the work."
+      note: "Replace the placeholders with the final image sequence."
     }
   },
 
@@ -129,7 +127,7 @@ const copy = {
       title: "Работы — Владислав Ланских",
       description: "Избранные фотографические и художественные проекты Владислава Ланских.",
       heading: "Работы",
-      p1: "Слава богу, ты уедешь",
+      p1: "Слава богу, что ты уедешь",
       p1type: "Фотография / Автофикция",
       p1note: "Проект в процессе",
       p2: "Проект 02",
@@ -172,15 +170,16 @@ const copy = {
       infoNote: "Избранные проекты, выставки и публикации собраны в разделах «Работы» и «Архив»."
     },
     project: {
-      title: "Слава богу, ты уедешь — Владислав Ланских",
+      title: "Слава богу, что ты уедешь — Владислав Ланских",
       description: "Фотографический и автофикциональный проект Владислава Ланских.",
-      projectTitle: "Слава богу,<br>ты уедешь",
+      projectTitle: "Слава богу,<br>что ты уедешь",
       sequence: "Серия",
-      grid: "Сетка",
-      text: "Текст",
       info: "Инфо",
-      placeholder: "Изображение",
-      body: "Эта страница подготовлена под финальный текст проекта. Макет намеренно спокойный: текст может существовать рядом с фотографической последовательностью, не превращаясь в подпись или иллюстрацию.",
+      text1: "Текст 01 — после кадра 04.",
+      text2: "Текст 02 — после кадра 08.",
+      text3: "Текст 03 — после кадра 14.",
+      text4: "Текст 04 — после кадра 19.",
+      text5: "Текст 05 — после кадра 23.",
       mediumLabel: "Медиум",
       medium: "Фотография / Автофикция",
       yearLabel: "Год",
@@ -188,10 +187,7 @@ const copy = {
       statusLabel: "Статус",
       status: "Проект в процессе",
       noteLabel: "Примечание",
-      note: "Замени заглушки финальной последовательностью изображений.",
-      fragment1: "Фрагмент текста. В финальном проекте это не подпись к фотографии, а равноправная часть последовательности.",
-      fragment2: "Другой фрагмент может прерывать визуальный ритм, менять темп и переопределять то, что было показано до него.",
-      projectEndnote: "Финальный порядок изображений, пауз и текстовых фрагментов и формирует произведение."
+      note: "Замени заглушки финальной последовательностью изображений."
     }
   }
 };
@@ -226,44 +222,52 @@ function syncLinks(language) {
   });
 }
 
-function setLanguage(language, updateUrl = true) {
+function applyLanguage(language, updateUrl) {
+  document.documentElement.lang = language;
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const value = lookup(language, el.dataset.i18n);
+    if (value !== "") el.innerHTML = value;
+  });
+
+  const title = lookup(language, "title");
+  const description = lookup(language, "description");
+
+  if (title) document.title = title;
+  if (description) {
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", description);
+  }
+
+  document.querySelectorAll("[data-language]").forEach((button) => {
+    button.setAttribute(
+      "aria-pressed",
+      button.dataset.language === language ? "true" : "false"
+    );
+  });
+
+  localStorage.setItem("site-language", language);
+  syncLinks(language);
+
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", language);
+    history.replaceState({}, "", url);
+  }
+}
+
+function setLanguage(language, updateUrl = true, animate = true) {
   if (!copy[language]) return;
 
+  // First render is synchronous: no fade, no blank frame on load.
+  if (!animate) {
+    applyLanguage(language, updateUrl);
+    return;
+  }
+
   document.body.classList.add("language-changing");
-
   setTimeout(() => {
-    document.documentElement.lang = language;
-
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const value = lookup(language, el.dataset.i18n);
-      if (value !== "") el.innerHTML = value;
-    });
-
-    const title = lookup(language, "title");
-    const description = lookup(language, "description");
-
-    if (title) document.title = title;
-    if (description) {
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.setAttribute("content", description);
-    }
-
-    document.querySelectorAll("[data-language]").forEach((button) => {
-      button.setAttribute(
-        "aria-pressed",
-        button.dataset.language === language ? "true" : "false"
-      );
-    });
-
-    localStorage.setItem("site-language", language);
-    syncLinks(language);
-
-    if (updateUrl) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("lang", language);
-      history.replaceState({}, "", url);
-    }
-
+    applyLanguage(language, updateUrl);
     document.body.classList.remove("language-changing");
   }, 90);
 }
@@ -286,7 +290,7 @@ document.querySelectorAll("[data-project-tab]").forEach((button) => {
   });
 });
 
-setLanguage(initialLanguage(), false);
+setLanguage(initialLanguage(), false, false);
 
 
 function initialTheme() {
