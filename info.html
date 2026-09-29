@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body data-page="home">
+<body data-page="info">
   <main class="site">
     
 <header class="header">
@@ -20,7 +20,7 @@
       <a href="work.html" data-preserve-lang data-i18n="navWork">Work</a>
       <a href="text.html" data-preserve-lang data-i18n="navText">Text</a>
       <a href="archive.html" data-preserve-lang data-i18n="navArchive">Archive</a>
-      <a href="info.html" data-preserve-lang data-i18n="navInfo">Info</a>
+      <a href="info.html" aria-current="page" data-preserve-lang data-i18n="navInfo">Info</a>
     </nav>
     <div class="lang" aria-label="Language">
       <button type="button" data-language="en" aria-pressed="true">EN</button>
@@ -31,35 +31,23 @@
 </header>
 
     
-<section>
-  <div class="home-hero">
-    <h1 class="home-name">
-      <span data-i18n="firstName">Vladislav</span>
-      <span data-i18n="lastName">Lanskikh</span>
-    </h1>
+<section class="content">
+  <h1 class="page-title" data-i18n="heading">Info</h1>
 
-    <div class="home-meta">
-      <p class="role" data-i18n="role">Artist &amp; photographer<br>based in Saint Petersburg</p>
-      <p class="home-intro" data-i18n="intro">
-        Photography, text and personal archive. Selected works and ongoing projects.
-      </p>
+  <div class="info-grid">
+    <h2 class="info-name" data-i18n="displayName">Vladislav<br>Lanskikh</h2>
+
+    <div class="info-copy">
+      <p data-i18n="bio1">Photographer and visual artist working with staged and documentary photography, text and personal archive.</p>
+      <p data-i18n="bio2">His practice is focused on memory, intimacy, post-Soviet imagery and the way inherited images persist in bodies, objects and spaces.</p>
+      <p><span data-i18n="location">Saint Petersburg</span></p>
+
+      <div class="info-links">
+        <a href="https://www.instagram.com/vlans.ph/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://t.me/lansvlad" target="_blank" rel="noopener noreferrer">Telegram</a>
+      </div>
     </div>
   </div>
-
-  <nav class="home-index" aria-label="Sections">
-    <a href="work.html" data-preserve-lang>
-      <span>01</span><span class="index-title" data-i18n="indexWork">Work</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="text.html" data-preserve-lang>
-      <span>02</span><span class="index-title" data-i18n="indexText">Text</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="archive.html" data-preserve-lang>
-      <span>03</span><span class="index-title" data-i18n="indexArchive">Archive</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="info.html" data-preserve-lang>
-      <span>04</span><span class="index-title" data-i18n="indexInfo">Info</span><span class="index-arrow">↗</span>
-    </a>
-  </nav>
 </section>
 
     

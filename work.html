@@ -10,14 +10,14 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body data-page="home">
+<body data-page="work">
   <main class="site">
     
 <header class="header">
   <a class="identity" href="index.html" data-preserve-lang data-i18n="identity">Vladislav Lanskikh</a>
   <div class="header-right">
     <nav class="nav" aria-label="Primary navigation">
-      <a href="work.html" data-preserve-lang data-i18n="navWork">Work</a>
+      <a href="work.html" aria-current="page" data-preserve-lang data-i18n="navWork">Work</a>
       <a href="text.html" data-preserve-lang data-i18n="navText">Text</a>
       <a href="archive.html" data-preserve-lang data-i18n="navArchive">Archive</a>
       <a href="info.html" data-preserve-lang data-i18n="navInfo">Info</a>
@@ -31,35 +31,34 @@
 </header>
 
     
-<section>
-  <div class="home-hero">
-    <h1 class="home-name">
-      <span data-i18n="firstName">Vladislav</span>
-      <span data-i18n="lastName">Lanskikh</span>
-    </h1>
+<section class="content">
+  <h1 class="page-title" data-i18n="heading">Work</h1>
 
-    <div class="home-meta">
-      <p class="role" data-i18n="role">Artist &amp; photographer<br>based in Saint Petersburg</p>
-      <p class="home-intro" data-i18n="intro">
-        Photography, text and personal archive. Selected works and ongoing projects.
-      </p>
+  <div class="index-list">
+    <a class="index-row" href="project-slava-bogu.html" data-preserve-lang>
+      <span class="index-no">01</span>
+      <span class="index-name" data-i18n="p1">Thank God You're Leaving</span>
+      <span class="index-year">2026</span>
+      <span class="index-type" data-i18n="p1type">Photography / Autofiction</span>
+      <span class="index-note" data-i18n="p1note">Ongoing project</span>
+    </a>
+
+    <div class="index-row">
+      <span class="index-no">02</span>
+      <span class="index-name" data-i18n="p2">Project 02</span>
+      <span class="index-year">2025</span>
+      <span class="index-type" data-i18n="p2type">Photography</span>
+      <span class="index-note" data-i18n="p2note">In progress</span>
+    </div>
+
+    <div class="index-row">
+      <span class="index-no">03</span>
+      <span class="index-name" data-i18n="p3">Project 03</span>
+      <span class="index-year">2024</span>
+      <span class="index-type" data-i18n="p3type">Photography / Text</span>
+      <span class="index-note" data-i18n="p3note">In progress</span>
     </div>
   </div>
-
-  <nav class="home-index" aria-label="Sections">
-    <a href="work.html" data-preserve-lang>
-      <span>01</span><span class="index-title" data-i18n="indexWork">Work</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="text.html" data-preserve-lang>
-      <span>02</span><span class="index-title" data-i18n="indexText">Text</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="archive.html" data-preserve-lang>
-      <span>03</span><span class="index-title" data-i18n="indexArchive">Archive</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="info.html" data-preserve-lang>
-      <span>04</span><span class="index-title" data-i18n="indexInfo">Info</span><span class="index-arrow">↗</span>
-    </a>
-  </nav>
 </section>
 
     

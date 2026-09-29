@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body data-page="home">
+<body data-page="archive">
   <main class="site">
     
 <header class="header">
@@ -19,7 +19,7 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="work.html" data-preserve-lang data-i18n="navWork">Work</a>
       <a href="text.html" data-preserve-lang data-i18n="navText">Text</a>
-      <a href="archive.html" data-preserve-lang data-i18n="navArchive">Archive</a>
+      <a href="archive.html" aria-current="page" data-preserve-lang data-i18n="navArchive">Archive</a>
       <a href="info.html" data-preserve-lang data-i18n="navInfo">Info</a>
     </nav>
     <div class="lang" aria-label="Language">
@@ -31,35 +31,31 @@
 </header>
 
     
-<section>
-  <div class="home-hero">
-    <h1 class="home-name">
-      <span data-i18n="firstName">Vladislav</span>
-      <span data-i18n="lastName">Lanskikh</span>
-    </h1>
+<section class="content">
+  <h1 class="page-title" data-i18n="heading">Archive</h1>
 
-    <div class="home-meta">
-      <p class="role" data-i18n="role">Artist &amp; photographer<br>based in Saint Petersburg</p>
-      <p class="home-intro" data-i18n="intro">
-        Photography, text and personal archive. Selected works and ongoing projects.
-      </p>
-    </div>
+  <div class="archive-grid">
+    <section class="archive-col">
+      <h2 data-i18n="exhibitions">Exhibitions</h2>
+      <p class="archive-item"><time>2026</time><span data-i18n="placeholder">Entry to be added</span></p>
+      <p class="archive-item"><time>2025</time><span data-i18n="placeholder">Entry to be added</span></p>
+      <p class="archive-item"><time>2024</time><span data-i18n="placeholder">Entry to be added</span></p>
+    </section>
+
+    <section class="archive-col">
+      <h2 data-i18n="publications">Publications</h2>
+      <p class="archive-item"><time>2026</time><span data-i18n="placeholder">Entry to be added</span></p>
+      <p class="archive-item"><time>2025</time><span data-i18n="placeholder">Entry to be added</span></p>
+      <p class="archive-item"><time>2024</time><span data-i18n="placeholder">Entry to be added</span></p>
+    </section>
+
+    <section class="archive-col">
+      <h2 data-i18n="openCalls">Open calls</h2>
+      <p class="archive-item"><time>2026</time><span data-i18n="placeholder">Entry to be added</span></p>
+      <p class="archive-item"><time>2025</time><span data-i18n="placeholder">Entry to be added</span></p>
+      <p class="archive-item"><time>2024</time><span data-i18n="placeholder">Entry to be added</span></p>
+    </section>
   </div>
-
-  <nav class="home-index" aria-label="Sections">
-    <a href="work.html" data-preserve-lang>
-      <span>01</span><span class="index-title" data-i18n="indexWork">Work</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="text.html" data-preserve-lang>
-      <span>02</span><span class="index-title" data-i18n="indexText">Text</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="archive.html" data-preserve-lang>
-      <span>03</span><span class="index-title" data-i18n="indexArchive">Archive</span><span class="index-arrow">↗</span>
-    </a>
-    <a href="info.html" data-preserve-lang>
-      <span>04</span><span class="index-title" data-i18n="indexInfo">Info</span><span class="index-arrow">↗</span>
-    </a>
-  </nav>
 </section>
 
     
