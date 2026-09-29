@@ -66,7 +66,12 @@ const copy = {
       displayName: "Vladislav<br>Lanskikh",
       bio1: "Photographer and visual artist working with staged and documentary photography, text and personal archive.",
       bio2: "His practice is focused on memory, intimacy, post-Soviet imagery and the way inherited images persist in bodies, objects and spaces.",
-      location: "Saint Petersburg"
+      location: "Saint Petersburg",
+      practiceLabel: "Practice",
+      practiceValue: "Photography / Visual Art / Text",
+      locationLabel: "Location",
+      contactLabel: "Links",
+      infoNote: "Selected projects, exhibitions and publications are collected in the Work and Archive sections."
     },
     project: {
       title: "Thank God You're Leaving — Vladislav Lanskikh",
@@ -159,7 +164,12 @@ const copy = {
       displayName: "Владислав<br>Ланских",
       bio1: "Фотограф и визуальный художник, работающий с постановочной и документальной фотографией, текстом и личным архивом.",
       bio2: "Практика сосредоточена на памяти, интимности, постсоветских образах и на том, как унаследованные изображения продолжают существовать в телах, предметах и пространствах.",
-      location: "Санкт-Петербург"
+      location: "Санкт-Петербург",
+      practiceLabel: "Практика",
+      practiceValue: "Фотография / визуальное искусство / текст",
+      locationLabel: "Город",
+      contactLabel: "Ссылки",
+      infoNote: "Избранные проекты, выставки и публикации собраны в разделах «Работы» и «Архив»."
     },
     project: {
       title: "Слава богу, ты уедешь — Владислав Ланских",
