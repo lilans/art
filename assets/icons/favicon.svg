@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <style>
+    .screen { fill: #111; }
+    .edge { fill: none; stroke: #111; stroke-width: 0; }
+    @media (prefers-color-scheme: dark) {
+      .screen { fill: #161615; }
+      .edge { stroke: #8a8a85; stroke-width: 1.2; }
+    }
+  </style>
+  <!-- CRT screen: slightly barrelled rectangle -->
+  <path class="screen" d="M16 4.5c6.2 0 9.9.4 11.3 1.6 1.2 1 1.7 3.7 1.7 9.9s-.5 8.9-1.7 9.9c-1.4 1.2-5.1 1.6-11.3 1.6s-9.9-.4-11.3-1.6C3.5 24.9 3 22.2 3 16s.5-8.9 1.7-9.9C6.1 4.9 9.8 4.5 16 4.5Z"/>
+  <path class="edge" d="M16 5.1c6 0 9.5.4 10.8 1.5 1.1.9 1.6 3.5 1.6 9.4s-.5 8.5-1.6 9.4c-1.3 1.1-4.8 1.5-10.8 1.5s-9.5-.4-10.8-1.5C4.1 24.5 3.6 21.9 3.6 16s.5-8.5 1.6-9.4C6.5 5.5 10 5.1 16 5.1Z"/>
+  <!-- the dot left by a switched-off tube -->
+  <circle cx="16" cy="16" r="5" fill="url(#glow)"/>
+  <circle cx="16" cy="16" r="1.9" fill="#fff"/>
+</svg>

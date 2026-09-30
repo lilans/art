@@ -33,3 +33,8 @@ Home cover:
 - assets/images/home-cover-mobile.jpg — tighter 4:5 crop for ≤760px, so the TV screen stays readable
 - assets/images/og.jpg — 1200×630 link preview, used on all pages
 - Caption text and alt live in site.js (`coverTitle`, `coverAlt`).
+
+Favicon:
+- assets/icons/favicon.svg — main icon (CRT screen with the dot of a switched-off tube); adapts to dark browser UI
+- favicon.ico (16/32/48) at the root — fallback for older browsers and for requests to /favicon.ico
+- assets/icons/apple-touch-icon.png (180) and icon-512.png — home screen / bookmarks
