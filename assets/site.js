@@ -84,6 +84,12 @@ const copy = {
       next: "Next",
       close: "Close",
       viewerLabel: "Photographs. Use the arrow keys to move through the sequence.",
+      scaleLabel: "Sequence",
+      photoLabel: "Photograph",
+      textLabel: "Text",
+      watch: "Watch",
+      watchLabel: "Watch the sequence full screen",
+      exitHint: "Esc — exit",
       info: "Info",
       text1: "Text 01 — follows frame 04.",
       text2: "Text 02 — follows frame 08.",
@@ -184,6 +190,12 @@ const copy = {
       next: "Далее",
       close: "Закрыть",
       viewerLabel: "Фотографии. Стрелками можно листать последовательность.",
+      scaleLabel: "Последовательность",
+      photoLabel: "Фотография",
+      textLabel: "Текст",
+      watch: "Смотреть",
+      watchLabel: "Смотреть серию во весь экран",
+      exitHint: "Esc — выход",
       info: "Инфо",
       text1: "Текст 01 — после кадра 04.",
       text2: "Текст 02 — после кадра 08.",
@@ -265,6 +277,7 @@ function applyLanguage(language, updateUrl) {
   });
 
   localStorage.setItem("site-language", language);
+  document.dispatchEvent(new CustomEvent("site:language"));
   syncLinks(language);
 
   if (updateUrl) {
@@ -355,70 +368,106 @@ setTheme(initialTheme());
 
 /* ---------- Project viewer ---------- */
 
-const viewer = document.querySelector(".viewer");
+const pad = (n) => String(n).padStart(2, "0");
+const t = (key) => lookup(document.documentElement.lang || "en", key);
 
-if (viewer) {
-  const slides = [...viewer.querySelectorAll(".slide")];
-  const photos = slides.filter((slide) => slide.classList.contains("frame"));
-  const images = photos.map((slide) => slide.querySelector("img"));
-  const counter = document.querySelector(".sequence-panel .viewer-count");
-  const prevButton = document.querySelector('.viewer-steps [data-step="-1"]');
-  const nextButton = document.querySelector('.viewer-steps [data-step="1"]');
-  const desktop = window.matchMedia("(min-width: 761px)");
-  const pad = (n) => String(n).padStart(2, "0");
-
-  let current = 0;
-
-  const slideIndex = () =>
-    Math.round(viewer.scrollTop / (viewer.clientHeight || 1));
-
-  // Number of the last photo at or before a slide (text slides keep it).
-  const photoNumberAt = (index) => {
-    let n = 0;
-    for (let i = 0; i <= index && i < slides.length; i++) {
-      if (slides[i].classList.contains("frame")) n++;
-    }
-    return Math.max(n, 1);
-  };
-
-  function updateControls() {
-    current = slideIndex();
-    if (counter) counter.textContent = `${pad(photoNumberAt(current))} / ${pad(photos.length)}`;
-    if (prevButton) prevButton.disabled = current <= 0;
-    if (nextButton) nextButton.disabled = current >= slides.length - 1;
-  }
-
-  function goTo(index) {
-    const target = Math.max(0, Math.min(slides.length - 1, index));
-    viewer.scrollTo({ top: slides[target].offsetTop - viewer.offsetTop, behavior: "smooth" });
-  }
-
-  const step = (direction) => goTo(slideIndex() + direction);
-
-  // One wheel gesture = one slide. A trackpad fling produces a long tail of
-  // events; the lock is held until they stop, so it moves exactly once.
+// One wheel gesture = one step. A trackpad fling produces a long tail of
+// events; the lock is held until they stop, so it moves exactly once.
+function onWheelStep(element, callback, enabled = () => true) {
   let locked = false;
   let lockedUntil = 0;
   let quietTimer = null;
 
-  viewer.addEventListener("wheel", (event) => {
-    if (!desktop.matches) return;
+  element.addEventListener("wheel", (event) => {
+    if (!enabled()) return;
     event.preventDefault();
 
     const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
 
     clearTimeout(quietTimer);
     quietTimer = setTimeout(() => {
-      if (performance.now() >= lockedUntil) locked = false;
-      else setTimeout(() => (locked = false), lockedUntil - performance.now());
+      const wait = Math.max(0, lockedUntil - performance.now());
+      setTimeout(() => (locked = false), wait);
     }, 160);
 
     if (locked || Math.abs(delta) < 4) return;
 
     locked = true;
     lockedUntil = performance.now() + 450;
-    step(delta > 0 ? 1 : -1);
+    callback(delta > 0 ? 1 : -1);
   }, { passive: false });
+}
+
+const viewer = document.querySelector(".viewer");
+
+if (viewer) {
+  const slides = [...viewer.querySelectorAll(".slide")];
+  const isPhoto = (slide) => slide.classList.contains("frame");
+  const photos = slides.filter(isPhoto);
+  const images = photos.map((slide) => slide.querySelector("img"));
+  const prevButton = document.querySelector('.viewer-steps [data-step="-1"]');
+  const nextButton = document.querySelector('.viewer-steps [data-step="1"]');
+  const scale = document.querySelector(".scale");
+  const desktop = window.matchMedia("(min-width: 761px)");
+
+  // Photo number / text number for every slide, in order.
+  const numbers = [];
+  {
+    let photo = 0;
+    let text = 0;
+    slides.forEach((slide) => {
+      numbers.push(isPhoto(slide) ? { kind: "photo", n: ++photo } : { kind: "text", n: ++text });
+    });
+  }
+
+  const slideName = (index) => {
+    const { kind, n } = numbers[index];
+    return kind === "photo"
+      ? `${t("photoLabel")} ${pad(n)} / ${pad(photos.length)}`
+      : `${t("textLabel")} ${pad(n)}`;
+  };
+
+  let current = 0;
+
+  const slideIndex = () =>
+    Math.max(0, Math.min(slides.length - 1, Math.round(viewer.scrollTop / (viewer.clientHeight || 1))));
+
+  function goTo(index, behavior = "smooth") {
+    const target = Math.max(0, Math.min(slides.length - 1, index));
+    viewer.scrollTo({ top: slides[target].offsetTop - viewer.offsetTop, behavior });
+  }
+
+  const step = (direction) => goTo(slideIndex() + direction);
+
+  /* Scale: one tick per slide, longer ticks for texts. */
+  const ticks = slides.map((slide, index) => {
+    const tick = document.createElement("button");
+    tick.type = "button";
+    tick.className = `scale-tick ${numbers[index].kind === "text" ? "is-text" : ""}`;
+    if (numbers[index].kind === "photo") tick.dataset.label = pad(numbers[index].n);
+    tick.addEventListener("click", () => goTo(index));
+    scale?.appendChild(tick);
+    return tick;
+  });
+
+  function labelTicks() {
+    ticks.forEach((tick, index) => {
+      tick.setAttribute("aria-label", slideName(index));
+      tick.title = slideName(index);
+    });
+  }
+
+  function updateControls() {
+    current = slideIndex();
+    ticks.forEach((tick, index) => {
+      if (index === current) tick.setAttribute("aria-current", "step");
+      else tick.removeAttribute("aria-current");
+    });
+    if (prevButton) prevButton.disabled = current <= 0;
+    if (nextButton) nextButton.disabled = current >= slides.length - 1;
+  }
+
+  onWheelStep(viewer, step, () => desktop.matches);
 
   let scrollTimer = null;
   viewer.addEventListener("scroll", () => {
@@ -445,14 +494,14 @@ if (viewer) {
   nextButton?.addEventListener("click", () => step(1));
 
   window.addEventListener("resize", () => {
-    if (desktop.matches) viewer.scrollTop = slides[current].offsetTop - viewer.offsetTop;
+    if (desktop.matches) goTo(current, "instant");
   });
 
+  document.addEventListener("site:language", labelTicks);
+  labelTicks();
   updateControls();
 
   /* ---------- Lightbox ---------- */
-
-  const t = (key) => lookup(document.documentElement.lang || "en", key);
 
   const box = document.createElement("div");
   box.className = "lightbox";
@@ -506,7 +555,7 @@ if (viewer) {
     document.documentElement.classList.remove("lightbox-lock");
     // Leave the viewer on the photo that was open last.
     if (desktop.matches) {
-      viewer.scrollTop = photos[open].offsetTop - viewer.offsetTop;
+      goTo(slides.indexOf(photos[open]), "instant");
       updateControls();
     }
     open = -1;
@@ -532,5 +581,162 @@ if (viewer) {
       event.preventDefault();
       boxClose.focus();
     }
+  });
+
+  /* ---------- Watch: the sequence full screen, nothing else ---------- */
+
+  const screen = document.createElement("div");
+  screen.className = "screening";
+  screen.setAttribute("role", "dialog");
+  screen.setAttribute("aria-modal", "true");
+  screen.tabIndex = -1;
+  screen.innerHTML = `
+    <div class="screening-stage"></div>
+    <div class="screening-bar">
+      <span class="screening-count"></span>
+      <span class="screening-hint"></span>
+    </div>`;
+  document.body.appendChild(screen);
+
+  const stage = screen.querySelector(".screening-stage");
+  const screenCount = screen.querySelector(".screening-count");
+  const screenHint = screen.querySelector(".screening-hint");
+  const watchButton = document.querySelector(".watch-button");
+
+  let playing = -1;
+  let idleTimer = null;
+  let swapTimer = null;
+  let watchReturnFocus = null;
+
+  function preload(index) {
+    const slide = slides[index];
+    if (slide && isPhoto(slide)) {
+      const img = new Image();
+      img.src = slide.querySelector("img").dataset.full;
+    }
+  }
+
+  function renderSlide(index) {
+    const slide = slides[index];
+    if (isPhoto(slide)) {
+      const img = document.createElement("img");
+      img.alt = slide.querySelector("img").alt;
+      img.src = slide.querySelector("img").dataset.full;
+      return img;
+    }
+    const text = document.createElement("div");
+    text.className = "screening-text";
+    text.innerHTML = slide.innerHTML;
+    return text;
+  }
+
+  function play(index, immediate = false) {
+    const target = Math.max(0, Math.min(slides.length - 1, index));
+    if (target === playing) return;
+    playing = target;
+
+    const { kind, n } = numbers[target];
+    screenCount.textContent =
+      kind === "photo" ? `${pad(n)} / ${pad(photos.length)}` : `${t("textLabel")} ${pad(n)}`;
+
+    const swap = () => {
+      stage.replaceChildren(renderSlide(target));
+      stage.classList.remove("is-fading");
+      preload(target + 1);
+      preload(target - 1);
+    };
+
+    clearTimeout(swapTimer);
+    if (immediate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      swap();
+    } else {
+      stage.classList.add("is-fading");
+      swapTimer = setTimeout(swap, 260);
+    }
+  }
+
+  function wake() {
+    screen.classList.remove("is-idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => screen.classList.add("is-idle"), 1800);
+  }
+
+  function startWatching() {
+    if (open >= 0) closeBox();
+    watchReturnFocus = document.activeElement;
+    screenHint.textContent = t("exitHint");
+    playing = -1;
+    const from = desktop.matches ? slideIndex() : 0;
+    play(from, true);
+    screen.classList.add("is-open");
+    document.documentElement.classList.add("lightbox-lock");
+    screen.requestFullscreen?.().catch(() => {});
+    screen.focus({ preventScroll: true });
+    wake();
+  }
+
+  function stopWatching() {
+    if (!screen.classList.contains("is-open")) return;
+    screen.classList.remove("is-open", "is-idle");
+    document.documentElement.classList.remove("lightbox-lock");
+    if (document.fullscreenElement === screen) document.exitFullscreen?.().catch(() => {});
+    if (desktop.matches && playing >= 0) {
+      goTo(playing, "instant");
+      updateControls();
+    }
+    clearTimeout(idleTimer);
+    watchReturnFocus?.focus?.({ preventScroll: true });
+  }
+
+  watchButton?.addEventListener("click", startWatching);
+  watchButton?.setAttribute("aria-label", t("watchLabel"));
+  document.addEventListener("site:language", () => {
+    watchButton?.setAttribute("aria-label", t("watchLabel"));
+  });
+
+  onWheelStep(screen, (direction) => { play(playing + direction); wake(); }, () => screen.classList.contains("is-open"));
+
+  screen.addEventListener("mousemove", wake);
+
+  // Click / tap: right two thirds forward, left third back.
+  screen.addEventListener("click", (event) => {
+    const back = event.clientX < window.innerWidth / 3;
+    play(playing + (back ? -1 : 1));
+    wake();
+  });
+
+  // Leaving native full screen (browser Esc) closes the mode too.
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && screen.classList.contains("is-open")) stopWatching();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const watching = screen.classList.contains("is-open");
+
+    if (!watching) {
+      const typing = /input|textarea|select/i.test(event.target.tagName);
+      if ((event.key === "f" || event.key === "F" || event.key === "а" || event.key === "А") &&
+          !event.metaKey && !event.ctrlKey && !event.altKey && !typing && open < 0) {
+        event.preventDefault();
+        startWatching();
+      }
+      return;
+    }
+
+    const keys = { ArrowDown: 1, ArrowRight: 1, PageDown: 1, " ": 1, Enter: 1, ArrowUp: -1, ArrowLeft: -1, PageUp: -1 };
+    if (event.key === "Escape" || event.key === "f" || event.key === "F" || event.key === "а" || event.key === "А") {
+      event.preventDefault();
+      stopWatching();
+    } else if (event.key in keys) {
+      event.preventDefault();
+      play(playing + keys[event.key]);
+    } else if (event.key === "Home") {
+      play(0);
+    } else if (event.key === "End") {
+      play(slides.length - 1);
+    } else if (event.key === "Tab") {
+      event.preventDefault();
+    }
+    wake();
   });
 }

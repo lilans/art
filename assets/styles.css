@@ -362,6 +362,35 @@ button { font: inherit; color: inherit; }
   color: var(--text);
 }
 
+.watch-button {
+  margin-top: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* A small screen outline — the same shape as the favicon. */
+.watch-button::before {
+  content: "";
+  width: 13px;
+  height: 10px;
+  border: 1px solid currentColor;
+  border-radius: 3px / 4px;
+  background: radial-gradient(circle at 50% 50%, currentColor 0 1.2px, transparent 1.6px);
+}
+
+.watch-button:hover,
+.watch-button:focus-visible { color: var(--muted); }
+
 .project-tabs button[aria-selected="true"]::after {
   content: " —";
 }
@@ -686,7 +715,14 @@ body.language-changing [data-i18n] { opacity: 0; }
   --viewer-h: clamp(420px, calc(100svh - 230px), 1100px);
 }
 
+.viewer-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px;
+  column-gap: 20px;
+}
+
 .viewer {
+  min-width: 0;
   height: var(--viewer-h);
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -716,9 +752,80 @@ body.language-changing [data-i18n] { opacity: 0; }
   cursor: zoom-in;
 }
 
+/* Scale: a quiet map of the sequence — short ticks for photographs,
+   longer ones for texts. The current tick darkens and grows. */
+.scale {
+  height: var(--viewer-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 4px 0;
+}
+
+.scale-tick {
+  position: relative;
+  flex: 1 1 0;
+  max-height: 26px;
+  width: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.scale-tick::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 9px;
+  height: 1px;
+  background: var(--rule);
+  transition: width 200ms ease, background-color 200ms ease;
+}
+
+.scale-tick.is-text::after {
+  width: 18px;
+  background: var(--muted);
+  opacity: .55;
+}
+
+.scale-tick:hover::after,
+.scale-tick:focus-visible::after {
+  background: var(--muted);
+  opacity: 1;
+}
+
+.scale-tick[aria-current="step"]::after {
+  width: 22px;
+  background: var(--text);
+  opacity: 1;
+}
+
+.scale-tick.is-text[aria-current="step"]::after { width: 30px; }
+
+/* Number of the current photograph, just left of its tick. */
+.scale-tick[aria-current="step"][data-label]::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: .1em;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.scale-tick:focus-visible { outline: none; }
+
 .viewer-controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  padding-right: 60px;
   align-items: baseline;
   margin-top: 18px;
   font-size: 11px;
@@ -852,6 +959,76 @@ body.language-changing [data-i18n] { opacity: 0; }
 
 html.lightbox-lock { overflow: hidden; }
 
+/* Watch mode: always dark, like a projection in a dark room. */
+.screening {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: #0a0a0a;
+  color: #e6e6e3;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 400ms ease, visibility 0s linear 400ms;
+  outline: none;
+  cursor: default;
+}
+
+.screening.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 400ms ease;
+}
+
+.screening.is-idle { cursor: none; }
+
+.screening-stage {
+  position: absolute;
+  inset: 4vh 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 260ms ease;
+}
+
+.screening-stage.is-fading { opacity: 0; }
+
+.screening-stage img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.screening-text {
+  max-width: 34em;
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.62;
+  letter-spacing: -.012em;
+}
+
+.screening-text p { margin: 0; }
+
+.screening-bar {
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  color: #7d7d78;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 500ms ease;
+}
+
+.screening.is-idle .screening-bar { opacity: 0; }
+
 @media (max-width: 760px) {
   .viewer {
     height: auto;
@@ -871,7 +1048,15 @@ html.lightbox-lock { overflow: hidden; }
     height: auto;
   }
 
-  .viewer-controls { display: none; }
+  .viewer-controls,
+  .scale { display: none; }
+
+  .viewer-wrap { display: block; }
+
+  .watch-button { margin-top: 26px; }
+
+  .screening-stage { inset: 2vh 16px 48px; }
+  .screening-bar { left: 20px; right: 20px; bottom: 18px; }
 
   .lightbox { padding: 18px 20px; }
   .lightbox .lightbox-prev,
@@ -879,7 +1064,10 @@ html.lightbox-lock { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lightbox, .lightbox.is-open { transition: none; }
+  .lightbox, .lightbox.is-open,
+  .screening, .screening.is-open,
+  .screening-stage,
+  .scale-tick::after { transition: none; }
 }
 
 .text-fragment {

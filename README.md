@@ -23,6 +23,8 @@ Project page:
 - Sequence is a paged viewer: 23 photos + 5 text slides (after frames 04, 08, 14, 19, 23), one per screen.
 - Desktop: mouse wheel / trackpad over the viewer moves one slide per gesture and never scrolls the page; arrow keys, PgUp/PgDn, Home/End and Prev/Next buttons also work.
 - Mobile (≤760px): plain column, normal page scroll.
+- Scale to the right of the viewer: one tick per slide (short — photo, long — text); click to jump. Built by site.js from the slides, nothing to maintain by hand.
+- Watch mode: the «Watch» button or the F key. Dark full screen, one slide at a time, wheel / arrows / click (left third — back), Esc or F to leave; the viewer stays on the last slide shown. UI fades out after ~2 s without movement.
 - Click a photo to open it full screen (1600px file); ←/→ or the left/right edges to move, Esc or click to close.
 - Images: assets/images/slava-bogu/NN-900.jpg and NN-1600.jpg (sRGB). All photos share one height and one centre axis.
 - `alt` is empty for now — fill in per frame if needed.

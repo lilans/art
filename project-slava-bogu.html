@@ -62,10 +62,13 @@
         <button type="button" role="tab" aria-selected="true" data-project-tab="sequence" data-i18n="sequence">Sequence</button>
         <button type="button" role="tab" aria-selected="false" data-project-tab="info" data-i18n="info">Info</button>
       </div>
+
+      <button type="button" class="watch-button" data-i18n="watch">Watch</button>
     </aside>
 
     <div class="project-view">
       <div class="project-panel sequence-panel" data-project-panel="sequence">
+        <div class="viewer-wrap">
         <div class="viewer" tabindex="0" data-i18n-aria="viewerLabel" aria-label="Photographs">
           <figure class="slide frame">
             <img src="assets/images/slava-bogu/01-900.jpg"
@@ -272,8 +275,10 @@
           </div>
         </div>
 
+        <nav class="scale" data-i18n-aria="scaleLabel" aria-label="Sequence"></nav>
+        </div>
+
         <div class="viewer-controls">
-          <span class="viewer-count" aria-live="polite">01 / 23</span>
           <span class="viewer-steps">
             <button type="button" data-step="-1" data-i18n="prev">Prev</button>
             <button type="button" data-step="1" data-i18n="next">Next</button>
