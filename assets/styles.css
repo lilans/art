@@ -869,7 +869,10 @@ body.language-changing [data-i18n] { opacity: 0; }
   cursor: default;
 }
 
-.viewer:focus-visible {
+/* The viewer is focused on load; show a ring only for Tab navigation. */
+.viewer:focus-visible { outline: none; }
+
+html.keyboard-nav .viewer:focus-visible {
   outline: 1px solid var(--rule);
   outline-offset: 8px;
 }

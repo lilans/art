@@ -366,6 +366,14 @@ if (themeToggle) {
 setTheme(initialTheme());
 
 
+/* Focus rings only after the visitor starts using Tab. */
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Tab") document.documentElement.classList.add("keyboard-nav");
+});
+document.addEventListener("pointerdown", () => {
+  document.documentElement.classList.remove("keyboard-nav");
+});
+
 /* ---------- E-mail ----------
    The address lives in the page only as data-mail = base64 of the reversed
    string, and is put together here. Simple harvesters that read raw HTML
@@ -492,20 +500,40 @@ if (viewer) {
     scrollTimer = setTimeout(updateControls, 60);
   });
 
-  viewer.addEventListener("keydown", (event) => {
-    if (!desktop.matches) return;
-    const keys = { ArrowDown: 1, ArrowRight: 1, PageDown: 1, " ": 1, ArrowUp: -1, ArrowLeft: -1, PageUp: -1 };
+  // Keys page the sequence from anywhere on the page, not only when the
+  // viewer itself has focus — so arrows work straight after the page opens
+  // and after a click elsewhere. Form fields and open dialogs are left alone.
+  const sequencePanel = viewer.closest(".sequence-panel");
+
+  document.addEventListener("keydown", (event) => {
+    if (!desktop.matches || event.defaultPrevented) return;
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (sequencePanel?.hidden) return;
+    if (document.querySelector(".lightbox.is-open, .screening.is-open")) return;
+
+    const target = event.target;
+    if (/^(input|textarea|select)$/i.test(target.tagName) || target.isContentEditable) return;
+    // Space and Home/End keep their normal meaning on buttons and links.
+    const onControl = /^(button|a)$/i.test(target.tagName);
+
+    const keys = { ArrowDown: 1, ArrowRight: 1, PageDown: 1, ArrowUp: -1, ArrowLeft: -1, PageUp: -1 };
+    if (!onControl) keys[" "] = event.shiftKey ? -1 : 1;
+
     if (event.key in keys) {
       event.preventDefault();
       step(keys[event.key]);
-    } else if (event.key === "Home") {
+    } else if (!onControl && event.key === "Home") {
       event.preventDefault();
       goTo(0);
-    } else if (event.key === "End") {
+    } else if (!onControl && event.key === "End") {
       event.preventDefault();
       goTo(slides.length - 1);
     }
   });
+
+  // Focus the viewer on load (without scrolling), so screen readers and the
+  // browser treat it as the active element from the start.
+  if (desktop.matches) viewer.focus({ preventScroll: true });
 
   prevButton?.addEventListener("click", () => step(-1));
   nextButton?.addEventListener("click", () => step(1));
