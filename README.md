@@ -20,9 +20,12 @@ Deploy:
 Commit all files to the repository root. Cloudflare can serve the repository as a static site with no build command.
 
 Project page:
-- Sequence: 23 frames with the five texts inside the sequence (after frames 04, 08, 14, 19, 23).
-- Each frame sets its own size and side in HTML: `frame-large` (left, full), `frame-medium` (left, ~82%), `frame-small` (right, ~70%). Change the class to change the rhythm.
-- To add an image, replace the placeholder div in a frame with the commented `<img>` line. Images are capped at 88vh, so vertical frames never exceed the screen.
+- Sequence is a paged viewer: 23 photos + 5 text slides (after frames 04, 08, 14, 19, 23), one per screen.
+- Desktop: mouse wheel / trackpad over the viewer moves one slide per gesture and never scrolls the page; arrow keys, PgUp/PgDn, Home/End and Prev/Next buttons also work.
+- Mobile (≤760px): plain column, normal page scroll.
+- Click a photo to open it full screen (1600px file); ←/→ or the left/right edges to move, Esc or click to close.
+- Images: assets/images/slava-bogu/NN-900.jpg and NN-1600.jpg (sRGB). All photos share one height and one centre axis.
+- `alt` is empty for now — fill in per frame if needed.
 - Text keys `text1`–`text5` live in assets/site.js (EN and RU).
 
 Home cover:

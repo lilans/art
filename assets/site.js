@@ -80,6 +80,10 @@ const copy = {
       description: "A photography and autofiction project by Vladislav Lanskikh.",
       projectTitle: "Thank God<br>You're Leaving",
       sequence: "Sequence",
+      prev: "Prev",
+      next: "Next",
+      close: "Close",
+      viewerLabel: "Photographs. Use the arrow keys to move through the sequence.",
       info: "Info",
       text1: "Text 01 — follows frame 04.",
       text2: "Text 02 — follows frame 08.",
@@ -91,9 +95,7 @@ const copy = {
       yearLabel: "Year",
       year: "2026",
       statusLabel: "Status",
-      status: "Ongoing project",
-      noteLabel: "Note",
-      note: "Replace the placeholders with the final image sequence."
+      status: "Ongoing project"
     }
   },
 
@@ -178,6 +180,10 @@ const copy = {
       description: "Фотографический и автофикциональный проект Владислава Ланских.",
       projectTitle: "Слава богу,<br>что ты уедешь",
       sequence: "Серия",
+      prev: "Назад",
+      next: "Далее",
+      close: "Закрыть",
+      viewerLabel: "Фотографии. Стрелками можно листать последовательность.",
       info: "Инфо",
       text1: "Текст 01 — после кадра 04.",
       text2: "Текст 02 — после кадра 08.",
@@ -189,9 +195,7 @@ const copy = {
       yearLabel: "Год",
       year: "2026",
       statusLabel: "Статус",
-      status: "Проект в процессе",
-      noteLabel: "Примечание",
-      note: "Замени заглушки финальной последовательностью изображений."
+      status: "Проект в процессе"
     }
   }
 };
@@ -232,6 +236,11 @@ function applyLanguage(language, updateUrl) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const value = lookup(language, el.dataset.i18n);
     if (value !== "") el.innerHTML = value;
+  });
+
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    const value = lookup(language, el.dataset.i18nAria);
+    if (value !== "") el.setAttribute("aria-label", value);
   });
 
   document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
@@ -342,3 +351,186 @@ if (themeToggle) {
 }
 
 setTheme(initialTheme());
+
+
+/* ---------- Project viewer ---------- */
+
+const viewer = document.querySelector(".viewer");
+
+if (viewer) {
+  const slides = [...viewer.querySelectorAll(".slide")];
+  const photos = slides.filter((slide) => slide.classList.contains("frame"));
+  const images = photos.map((slide) => slide.querySelector("img"));
+  const counter = document.querySelector(".sequence-panel .viewer-count");
+  const prevButton = document.querySelector('.viewer-steps [data-step="-1"]');
+  const nextButton = document.querySelector('.viewer-steps [data-step="1"]');
+  const desktop = window.matchMedia("(min-width: 761px)");
+  const pad = (n) => String(n).padStart(2, "0");
+
+  let current = 0;
+
+  const slideIndex = () =>
+    Math.round(viewer.scrollTop / (viewer.clientHeight || 1));
+
+  // Number of the last photo at or before a slide (text slides keep it).
+  const photoNumberAt = (index) => {
+    let n = 0;
+    for (let i = 0; i <= index && i < slides.length; i++) {
+      if (slides[i].classList.contains("frame")) n++;
+    }
+    return Math.max(n, 1);
+  };
+
+  function updateControls() {
+    current = slideIndex();
+    if (counter) counter.textContent = `${pad(photoNumberAt(current))} / ${pad(photos.length)}`;
+    if (prevButton) prevButton.disabled = current <= 0;
+    if (nextButton) nextButton.disabled = current >= slides.length - 1;
+  }
+
+  function goTo(index) {
+    const target = Math.max(0, Math.min(slides.length - 1, index));
+    viewer.scrollTo({ top: slides[target].offsetTop - viewer.offsetTop, behavior: "smooth" });
+  }
+
+  const step = (direction) => goTo(slideIndex() + direction);
+
+  // One wheel gesture = one slide. A trackpad fling produces a long tail of
+  // events; the lock is held until they stop, so it moves exactly once.
+  let locked = false;
+  let lockedUntil = 0;
+  let quietTimer = null;
+
+  viewer.addEventListener("wheel", (event) => {
+    if (!desktop.matches) return;
+    event.preventDefault();
+
+    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+    clearTimeout(quietTimer);
+    quietTimer = setTimeout(() => {
+      if (performance.now() >= lockedUntil) locked = false;
+      else setTimeout(() => (locked = false), lockedUntil - performance.now());
+    }, 160);
+
+    if (locked || Math.abs(delta) < 4) return;
+
+    locked = true;
+    lockedUntil = performance.now() + 450;
+    step(delta > 0 ? 1 : -1);
+  }, { passive: false });
+
+  let scrollTimer = null;
+  viewer.addEventListener("scroll", () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(updateControls, 60);
+  });
+
+  viewer.addEventListener("keydown", (event) => {
+    if (!desktop.matches) return;
+    const keys = { ArrowDown: 1, ArrowRight: 1, PageDown: 1, " ": 1, ArrowUp: -1, ArrowLeft: -1, PageUp: -1 };
+    if (event.key in keys) {
+      event.preventDefault();
+      step(keys[event.key]);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      goTo(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      goTo(slides.length - 1);
+    }
+  });
+
+  prevButton?.addEventListener("click", () => step(-1));
+  nextButton?.addEventListener("click", () => step(1));
+
+  window.addEventListener("resize", () => {
+    if (desktop.matches) viewer.scrollTop = slides[current].offsetTop - viewer.offsetTop;
+  });
+
+  updateControls();
+
+  /* ---------- Lightbox ---------- */
+
+  const t = (key) => lookup(document.documentElement.lang || "en", key);
+
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.setAttribute("role", "dialog");
+  box.setAttribute("aria-modal", "true");
+  box.innerHTML = `
+    <div class="lightbox-bar">
+      <span class="viewer-count"></span>
+      <button type="button" class="lightbox-close"></button>
+    </div>
+    <div class="lightbox-stage">
+      <img alt="">
+      <button type="button" class="lightbox-prev"></button>
+      <button type="button" class="lightbox-next"></button>
+    </div>
+    <div></div>`;
+  document.body.appendChild(box);
+
+  const boxImage = box.querySelector(".lightbox-stage img");
+  const boxCount = box.querySelector(".viewer-count");
+  const boxClose = box.querySelector(".lightbox-close");
+  const boxPrev = box.querySelector(".lightbox-prev");
+  const boxNext = box.querySelector(".lightbox-next");
+
+  let open = -1;
+  let returnFocus = null;
+
+  function show(index) {
+    open = (index + images.length) % images.length;
+    const img = images[open];
+    boxImage.src = img.dataset.full || img.currentSrc || img.src;
+    boxImage.alt = img.alt;
+    boxCount.textContent = `${pad(open + 1)} / ${pad(images.length)}`;
+  }
+
+  function openBox(index) {
+    returnFocus = document.activeElement;
+    boxClose.textContent = t("close");
+    boxClose.setAttribute("aria-label", t("close"));
+    boxPrev.setAttribute("aria-label", t("prev"));
+    boxNext.setAttribute("aria-label", t("next"));
+    show(index);
+    box.classList.add("is-open");
+    document.documentElement.classList.add("lightbox-lock");
+    boxClose.focus({ preventScroll: true });
+  }
+
+  function closeBox() {
+    if (open < 0) return;
+    box.classList.remove("is-open");
+    document.documentElement.classList.remove("lightbox-lock");
+    // Leave the viewer on the photo that was open last.
+    if (desktop.matches) {
+      viewer.scrollTop = photos[open].offsetTop - viewer.offsetTop;
+      updateControls();
+    }
+    open = -1;
+    returnFocus?.focus?.({ preventScroll: true });
+  }
+
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => openBox(index));
+  });
+
+  boxImage.addEventListener("click", closeBox);
+  boxClose.addEventListener("click", closeBox);
+  boxPrev.addEventListener("click", () => show(open - 1));
+  boxNext.addEventListener("click", () => show(open + 1));
+
+  document.addEventListener("keydown", (event) => {
+    if (open < 0) return;
+    if (event.key === "Escape") closeBox();
+    else if (event.key === "ArrowRight" || event.key === "ArrowDown") show(open + 1);
+    else if (event.key === "ArrowLeft" || event.key === "ArrowUp") show(open - 1);
+    else if (event.key === "Tab") {
+      // Keep focus inside the dialog.
+      event.preventDefault();
+      boxClose.focus();
+    }
+  });
+}
