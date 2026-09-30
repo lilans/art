@@ -72,7 +72,7 @@ const copy = {
       practiceLabel: "Practice",
       practiceValue: "Photography / Visual Art / Text",
       locationLabel: "Location",
-      contactLabel: "Links",
+      contactLabel: "Contacts",
       infoNote: "Selected projects, exhibitions and publications are collected in the Work and Archive sections."
     },
     project: {
@@ -178,7 +178,7 @@ const copy = {
       practiceLabel: "Практика",
       practiceValue: "Фотография / визуальное искусство / текст",
       locationLabel: "Город",
-      contactLabel: "Ссылки",
+      contactLabel: "Контакты",
       infoNote: "Избранные проекты, выставки и публикации собраны в разделах «Работы» и «Архив»."
     },
     project: {
@@ -365,6 +365,23 @@ if (themeToggle) {
 
 setTheme(initialTheme());
 
+
+/* ---------- E-mail ----------
+   The address lives in the page only as data-mail = base64 of the reversed
+   string, and is put together here. Simple harvesters that read raw HTML
+   never see it; people see an ordinary mailto link. */
+
+document.querySelectorAll("[data-mail]").forEach((link) => {
+  try {
+    const address = atob(link.dataset.mail).split("").reverse().join("");
+    link.href = `mailto:${address}`;
+    const label = link.querySelector("span");
+    if (label) label.textContent = address;
+    link.hidden = false;
+  } catch (error) {
+    // Leave the link hidden if decoding fails.
+  }
+});
 
 /* ---------- Project viewer ---------- */
 

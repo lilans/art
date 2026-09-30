@@ -66,7 +66,7 @@
       </div>
 
       <div class="info-meta-group">
-        <div class="info-label" data-i18n="contactLabel">Links</div>
+        <div class="info-label" data-i18n="contactLabel">Contacts</div>
 
         <div class="info-links info-links-vertical">
           <a href="https://www.instagram.com/vlans.ph/" target="_blank" rel="noopener noreferrer">
@@ -84,6 +84,17 @@
             </svg>
             <span>Telegram</span>
           </a>
+
+          <!-- Address is assembled by site.js from data-mail (base64 of the reversed
+               address) so it never appears in the HTML that bots read. -->
+          <a class="info-email" data-mail="bW9jLmxpYW1nQGVib3Rzc2VuZ25paHRvbg==" hidden>
+            <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect>
+              <polyline points="4 7 12 13 20 7"></polyline>
+            </svg>
+            <span></span>
+          </a>
+          <noscript><span class="info-email-fallback">nothingnesstobe [at] gmail [dot] com</span></noscript>
         </div>
       </div>
     </aside>
@@ -123,6 +134,13 @@
 </svg>
           <span data-i18n="socialsTelegram">Telegram</span>
         </a>
+    <a class="info-email" data-mail="bW9jLmxpYW1nQGVib3Rzc2VuZ25paHRvbg==" hidden>
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect>
+        <polyline points="4 7 12 13 20 7"></polyline>
+      </svg>
+      <span></span>
+    </a>
   </nav>
   <div class="footer-note" data-i18n="footer">2026 / Portfolio in progress</div>
 </footer>

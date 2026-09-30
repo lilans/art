@@ -124,7 +124,8 @@ button { font: inherit; color: inherit; }
 
 .socials {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  gap: 14px 28px;
 }
 
 .footer-note { color: var(--muted); }
@@ -1318,6 +1319,22 @@ body,
   color: var(--muted);
   font-size: 11px;
   line-height: 1.55;
+}
+
+/* The address stays lowercase — it has to be read and copied exactly. */
+.info-links .info-email span,
+.socials .info-email span {
+  text-transform: none;
+  letter-spacing: .04em;
+  font-size: 12px;
+}
+
+.info-email[hidden] { display: none; }
+
+.info-email-fallback {
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: none;
 }
 
 .info-links-vertical {
