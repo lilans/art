@@ -7,7 +7,7 @@ const copy = {
       navInfo: "Info",
       socialsInstagram: "Instagram",
       socialsTelegram: "Telegram",
-      footer: "2026 / Portfolio in progress"
+      footer: "2026 / Vladislav Lanskikh"
     },
     home: {
       title: "Vladislav Lanskikh",
@@ -17,7 +17,6 @@ const copy = {
       role: "Artist & photographer<br>based in Saint Petersburg",
       intro: "Photography, text and personal archive. Selected works and ongoing projects.",
       indexWork: "Work",
-      indexText: "Text",
       indexArchive: "Archive",
       indexInfo: "Info",
       coverTitle: "Thank God You're Leaving",
@@ -26,7 +25,6 @@ const copy = {
       practiceTitle: "Photography, text<br>and personal archive.",
       practiceDescription: "Projects in which images and autofictional text form a single sequence. Based in Saint Petersburg.",
       workNote: "Projects: photography + text",
-      archiveNote: "Exhibitions, publications, open calls",
       infoNote: "Bio, contacts and links"
     },
     work: {
@@ -35,31 +33,15 @@ const copy = {
       heading: "Work",
       p1: "Thank God You're Leaving",
       p1type: "Photography / Autofiction",
-      p1note: "Ongoing project",
-      p2: "Project 02",
-      p2type: "Photography",
-      p2note: "In progress",
-      p3: "Project 03",
-      p3type: "Photography / Text",
-      p3note: "In progress"
-    },
-    text: {
-      title: "Text — Vladislav Lanskikh",
-      description: "Texts by Vladislav Lanskikh.",
-      heading: "Text",
-      t1: "Selected text 01",
-      t2: "Selected text 02",
-      t3: "Selected text 03",
-      t4: "Selected text 04"
+      p1note: "Ongoing project"
     },
     archive: {
-      title: "Archive — Vladislav Lanskikh",
-      description: "Exhibitions, publications and open calls.",
+      title: "Archive ? Vladislav Lanskikh",
+      description: "Selected exhibitions featuring Vladislav Lanskikh.",
       heading: "Archive",
       exhibitions: "Exhibitions",
-      publications: "Publications",
-      openCalls: "Open calls",
-      placeholder: "Entry to be added"
+      entanglementVenue: "B-Part Exhibition, Berlin",
+      entanglementDates: "August 2026"
     },
     info: {
       title: "Info — Vladislav Lanskikh",
@@ -67,13 +49,12 @@ const copy = {
       heading: "Info",
       displayName: "Vladislav<br>Lanskikh",
       bio1: "Photographer and visual artist working with staged and documentary photography, text and personal archive.",
-      bio2: "His practice is focused on memory, intimacy, post-Soviet imagery and the way inherited images persist in bodies, objects and spaces.",
       location: "Saint Petersburg",
       practiceLabel: "Practice",
       practiceValue: "Photography / Visual Art / Text",
       locationLabel: "Location",
       contactLabel: "Contacts",
-      infoNote: "Selected projects, exhibitions and publications are collected in the Work and Archive sections."
+      infoNote: "The photography and autofiction project Thank God You're Leaving is presented in the Work section."
     },
     project: {
       title: "Thank God You're Leaving — Vladislav Lanskikh",
@@ -129,7 +110,7 @@ const copy = {
       navInfo: "Инфо",
       socialsInstagram: "Instagram",
       socialsTelegram: "Telegram",
-      footer: "2026 / Портфолио в процессе"
+      footer: "2026 / Владислав Ланских"
     },
     home: {
       title: "Владислав Ланских",
@@ -139,7 +120,6 @@ const copy = {
       role: "Художник и фотограф<br>Санкт-Петербург",
       intro: "Фотография, текст и личный архив. Избранные работы и проекты в процессе.",
       indexWork: "Работы",
-      indexText: "Тексты",
       indexArchive: "Архив",
       indexInfo: "Инфо",
       coverTitle: "Слава богу, что ты уедешь",
@@ -148,7 +128,6 @@ const copy = {
       practiceTitle: "Фотография, текст<br>и личный архив.",
       practiceDescription: "Проекты, в которых изображения и автофикциональный текст образуют единую последовательность. Санкт-Петербург.",
       workNote: "Проекты: фотография + текст",
-      archiveNote: "Выставки, публикации, опен-коллы",
       infoNote: "Биография, контакты и ссылки"
     },
     work: {
@@ -157,31 +136,15 @@ const copy = {
       heading: "Работы",
       p1: "Слава богу, что ты уедешь",
       p1type: "Фотография / Автофикция",
-      p1note: "Проект в процессе",
-      p2: "Проект 02",
-      p2type: "Фотография",
-      p2note: "В процессе",
-      p3: "Проект 03",
-      p3type: "Фотография / Текст",
-      p3note: "В процессе"
-    },
-    text: {
-      title: "Тексты — Владислав Ланских",
-      description: "Тексты Владислава Ланских.",
-      heading: "Тексты",
-      t1: "Избранный текст 01",
-      t2: "Избранный текст 02",
-      t3: "Избранный текст 03",
-      t4: "Избранный текст 04"
+      p1note: "Проект в процессе"
     },
     archive: {
       title: "Архив — Владислав Ланских",
-      description: "Выставки, публикации и опен-коллы.",
+      description: "Избранные выставки с участием Владислава Ланских.",
       heading: "Архив",
       exhibitions: "Выставки",
-      publications: "Публикации",
-      openCalls: "Опен-коллы",
-      placeholder: "Запись будет добавлена"
+      entanglementVenue: "B-Part Exhibition, Берлин",
+      entanglementDates: "1–22 августа 2026"
     },
     info: {
       title: "Инфо — Владислав Ланских",
@@ -189,13 +152,12 @@ const copy = {
       heading: "Инфо",
       displayName: "Владислав<br>Ланских",
       bio1: "Фотограф и визуальный художник, работающий с постановочной и документальной фотографией, текстом и личным архивом.",
-      bio2: "Практика сосредоточена на памяти, интимности, постсоветских образах и на том, как унаследованные изображения продолжают существовать в телах, предметах и пространствах.",
       location: "Санкт-Петербург",
       practiceLabel: "Практика",
       practiceValue: "Фотография / визуальное искусство / текст",
       locationLabel: "Город",
       contactLabel: "Контакты",
-      infoNote: "Избранные проекты, выставки и публикации собраны в разделах «Работы» и «Архив»."
+      infoNote: "Фотографический и автофикциональный проект «Слава богу, что ты уедешь» представлен в разделе «Работы»."
     },
     project: {
       title: "Слава богу, что ты уедешь — Владислав Ланских",
