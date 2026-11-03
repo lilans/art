@@ -36,7 +36,7 @@ const copy = {
       p1note: "Ongoing project"
     },
     archive: {
-      title: "Archive ? Vladislav Lanskikh",
+      title: "Archive — Vladislav Lanskikh",
       description: "Selected exhibitions featuring Vladislav Lanskikh.",
       heading: "Archive",
       exhibitions: "Exhibitions",
@@ -650,6 +650,7 @@ if (viewer) {
   screen.setAttribute("aria-modal", "true");
   screen.tabIndex = -1;
   screen.innerHTML = `
+    <button type="button" class="screening-close"></button>
     <div class="screening-stage"></div>
     <div class="screening-bar">
       <span class="screening-count"></span>
@@ -658,6 +659,7 @@ if (viewer) {
   document.body.appendChild(screen);
 
   const stage = screen.querySelector(".screening-stage");
+  const screenClose = screen.querySelector(".screening-close");
   const screenCount = screen.querySelector(".screening-count");
   const screenHint = screen.querySelector(".screening-hint");
   const watchButton = document.querySelector(".watch-button");
@@ -723,6 +725,7 @@ if (viewer) {
     if (open >= 0) closeBox();
     watchReturnFocus = document.activeElement;
     screenHint.textContent = t("exitHint");
+    screenClose.textContent = t("close");
     playing = -1;
     const from = desktop.matches ? slideIndex() : 0;
     play(from, true);
@@ -747,6 +750,10 @@ if (viewer) {
   }
 
   watchButton?.addEventListener("click", startWatching);
+  screenClose.addEventListener("click", (event) => {
+    event.stopPropagation();
+    stopWatching();
+  });
   watchButton?.setAttribute("aria-label", t("watchLabel"));
   document.addEventListener("site:language", () => {
     watchButton?.setAttribute("aria-label", t("watchLabel"));
@@ -782,6 +789,9 @@ if (viewer) {
       return;
     }
 
+    // Let the close button handle Enter / Space with its native click.
+    if (event.target === screenClose && (event.key === "Enter" || event.key === " ")) return;
+
     if (scrollProjectText(event, stage.querySelector(".project-text"))) {
       wake();
       return;
@@ -800,6 +810,7 @@ if (viewer) {
       play(slides.length - 1);
     } else if (event.key === "Tab") {
       event.preventDefault();
+      screenClose.focus({ preventScroll: true });
     }
     wake();
   });

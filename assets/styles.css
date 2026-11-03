@@ -985,9 +985,33 @@ html.lightbox-lock { overflow: hidden; }
 
 .screening.is-idle { cursor: none; }
 
+.screening-close {
+  position: absolute;
+  z-index: 1;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(20px, env(safe-area-inset-right));
+  min-width: 44px;
+  min-height: 44px;
+  padding: 12px;
+  border: 0;
+  background: #0a0a0a;
+  color: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.screening-close:hover { color: #ffffff; }
+.screening-close:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: -4px;
+}
+
 .screening-stage {
   position: absolute;
-  inset: 4vh 4vw;
+  inset: max(64px, 4vh) 4vw 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1073,8 +1097,9 @@ html.lightbox-lock { overflow: hidden; }
 
   .watch-button { margin-top: 26px; }
 
-  .screening-stage { inset: 2vh 16px 48px; }
+  .screening-stage { inset: max(64px, env(safe-area-inset-top)) 16px 48px; }
   .screening-bar { left: 20px; right: 20px; bottom: 18px; }
+  .screening-hint { display: none; }
 
   .lightbox { padding: 18px 20px; }
   .lightbox .lightbox-prev,
