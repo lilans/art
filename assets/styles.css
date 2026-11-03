@@ -1012,7 +1012,21 @@ html.lightbox-lock { overflow: hidden; }
   letter-spacing: -.012em;
 }
 
-.screening-text p { margin: 0; }
+.project-text {
+  width: 100%;
+  max-width: 34em;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.project-text p { margin: 0; }
+.project-text p + p { margin-top: 1em; }
+
+.project-text:focus-visible {
+  outline: 1px solid var(--rule);
+  outline-offset: -1px;
+}
 
 .screening-bar {
   position: absolute;
@@ -1135,6 +1149,10 @@ html.lightbox-lock { overflow: hidden; }
 
 
   .text-fragment { font-size: 18px; }
+  .viewer .project-text {
+    max-height: none;
+    overflow: visible;
+  }
   .black-pause { min-height: 72vw; }
 }
 

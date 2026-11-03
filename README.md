@@ -29,6 +29,8 @@ Project page:
 - Images: assets/images/slava-bogu/NN-900.jpg and NN-1600.jpg (sRGB). All photos share one height and one centre axis.
 - `alt` is empty for now — fill in per frame if needed.
 - Text keys `text1`–`text5` live in assets/site.js (EN and RU).
+- The five bilingual texts come from texts/texts, in source order, with paragraph breaks preserved. The HTML includes the English text as a fallback.
+- Long text slides scroll internally on desktop and in Watch mode: wheel over the text, Up/Down, PgUp/PgDn or Space. Left/Right and Prev/Next change slides. On mobile, the regular sequence shows each text in full in the page flow.
 
 Home cover:
 - assets/images/home-cover-1000.jpg / -1600.jpg — desktop (full frame, srcset)

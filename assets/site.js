@@ -91,11 +91,27 @@ const copy = {
       watchLabel: "Watch the sequence full screen",
       exitHint: "Esc — exit",
       info: "Info",
-      text1: "Text 01 — follows frame 04.",
-      text2: "Text 02 — follows frame 08.",
-      text3: "Text 03 — follows frame 14.",
-      text4: "Text 04 — follows frame 19.",
-      text5: "Text 05 — follows frame 23.",
+      text1: `<p>You could say I am living my life. You could say life is living me. Since childhood, I’ve had the feeling that it isn’t me looking at the world, but the world looking at me. The gaze of the world is enchanting and gentle. It is wrathful and angry.</p>
+<p>I fall apart under that gaze: building blocks, books by Arkady Gaidar, my first love, my second love and the third one. And then those pieces fall back together.</p>
+<p>You could say I am going somewhere. You could say I am being led somewhere. The feeling of being led has been familiar to me since childhood. I am being led towards my first lover, my second lover, the third one. The gazes of my lovers are enchanting and gentle. Wrathful and angry.</p>
+<p>I fall apart under their gazes: fear and fury, tenderness and sadness. One lover once said to me, ‘It’ll be fun and scary. It’ll hurt, and it’ll be funny.’</p>`,
+      text2: `<p>There was a funeral service shop close to my house. Winters were cold, so my friend and I often stopped by to warm up and take a look at the coffins. We would examine them and choose our favorite, then go back outside to build snow forts.</p>
+<p>One day I said to my friend, ‘Let’s make a coffin,’ and he loved the idea. We dug a hole big enough for the two of us in the snow, climbed inside and realised that the coffin lid was missing. We took a big piece of black cellophane from the dumpster.  We lay down in our snow coffin and covered ourselves with it.</p>
+<p>We stayed there for a while, hugging. I could feel his breath warming my cold cheeks. We promised each other that we would always be friends, no matter what happened.</p>`,
+      text3: `<p>One year before our divorce my wife was lying on the floor. Around her gathered several women, a paramedic and a gray‑haired intensive care doctor. She had angioedema.</p>
+<p>My wife was lying naked. Empty adrenaline syringes were lying next to her, three or four of them. The women asked her to stay conscious. There were visible surgical scars in her armpits.</p>
+<p>The doctor asked, ‘Has she had her breasts done?’ I said, ‘Yes.’</p>
+<p>The only elevator in our building was very narrow. Two people inside it would feel like a crowd. The paramedic, one of the neighbors and I squeezed in, holding my wife in our arms to get her to the ambulance. Her body was bent at a sharp angle, an endotracheal tube sticking out of her mouth.</p>
+<p>They took her away at night. The next evening she was already near me in our flat. We lay down on the bed. She asked, ‘We’ll always be together, won’t we?’ I said, ‘Yes, we’ll always be together.’</p>`,
+      text4: `<p>I remember the early days of spring most clearly from my childhood. When my father came home, I’d run off for a walk. I wouldn’t feel like seeing any of my friends. I would go to a vacant lot next to an abandoned construction site. There were lots of puddles and clay marked with tire tracks.</p>
+<p>I would find a stick and stir up the puddles. The rising mud looked like explosions. As the mud settled, outlines emerged. I imagined they were national borders. With my stick I would create ‘good’ and ‘bad’ countries that went to war with each other.</p>
+<p>The countries expanded and shrank. Some would conquer territory, then give it back, unable to hold on to it. By the end of my game, all that remained was a mess, with no ‘good’ or ‘bad’ countries. I would throw the stick far away and leave.</p>`,
+      text5: `<p>I grew up in the Urals, near Sverdlovsk. My town had three swamps, three factories. And forest all around.</p>
+<p>My parents worked a lot. My mother would come back home when it was already dark outside. Hearing her heels clicking outside the door, I would feel lightheaded. I learned to distinguish that sound from any other.</p>
+<p>My father was a truck driver. I could go months without seeing him.</p>
+<p>My dad was a detached person. To me, he seemed unapproachable. I never knew what he was thinking. But I knew the sound his belt buckle made. He had kind eyes. I loved them. I have my father’s eyes.</p>
+<p>Whenever he was getting ready to leave yet another time, I cried: ‘Thank God you’re leaving.’ I used to take his striped sailor’s shirt to put it next to my pillow.</p>
+<p>Everything around me seemed eternal.</p>`,
       mediumLabel: "Medium",
       medium: "Photography / Autofiction",
       yearLabel: "Year",
@@ -197,11 +213,27 @@ const copy = {
       watchLabel: "Смотреть серию во весь экран",
       exitHint: "Esc — выход",
       info: "Инфо",
-      text1: "Текст 01 — после кадра 04.",
-      text2: "Текст 02 — после кадра 08.",
-      text3: "Текст 03 — после кадра 14.",
-      text4: "Текст 04 — после кадра 19.",
-      text5: "Текст 05 — после кадра 23.",
+      text1: `<p>Можно сказать, что я проживаю жизнь. Можно сказать, что жизнь проживает меня. С детства мне знакомо ощущение, что не я смотрю на мир, а мир смотрит на меня. Его взгляд чарующий и ласковый. Гневный и злой.</p>
+<p>Я распадаюсь на части под взглядом мира. На детские кубики, на книжки Аркадия Гайдара, на первую влюблённость, на вторую, на третью. Потом эти части собираются воедино.</p>
+<p>Можно сказать, что я куда-то иду. Можно сказать, что меня куда-то ведут. Ощущение, что меня ведут, знакомо с детства. К первой возлюбленной, ко второй, к третьей. Возлюбленные смотрят на меня чарующе и ласково. Гневно и зло.</p>
+<p>Под их взглядом я распадаюсь на части. На страх и ярость, на нежность и грусть. Одна возлюбленная сказала мне: «Будет весело и страшно. Будет больно и смешно».</p>`,
+      text2: `<p>Рядом с моим домом был магазин ритуальных услуг. Зимой было холодно, мы с другом часто заходили туда, чтобы погреться и посмотреть на гробы. Некоторое время мы осматривали их и выбирали любимый гроб, а после шли строить снежные крепости.</p>
+<p>Однажды я сказал другу: «Давай построим гроб» — ему понравилась идея. Мы вырыли в снегу яму, в которой помещались вдвоём, залезли туда и поняли, что не хватает крышки. На мусорке нашёлся большой чёрный кусок целлофана. Мы легли в наш снежный гроб и укрылись им.</p>
+<p>Мы обнялись и пролежали так некоторое время. Я чувствовал, как его дыхание согревает мои замёрзшие щёки. Мы пообещали, что будем дружить всегда, что бы ни случилось.</p>`,
+      text3: `<p>За год до развода моя жена лежала на полу. Вокруг неё было несколько женщин, фельдшер и седой реаниматолог. У неё случился отёк Квинке.</p>
+<p>Жена лежала голая. Рядом валялись шприцы от адреналина, три или четыре штуки. Женщины просили её сохранять сознание. На подмышках были видны шрамы после операции.</p>
+<p>Реаниматолог спросил: «У неё сделанная грудь?». Я ответил: «Да».</p>
+<p>В нашем доме был один узкий лифт. В нём тесно вдвоём. Я, фельдшер и сосед втиснулись, чтобы донести жену до машины реанимации. Тело было сильно согнуто, из рта торчала интубационная трубка.</p>
+<p>Ночью её увезли. На следующий вечер она уже была рядом со мной в нашей квартире. Мы легли в кровать. Она спросила: «Мы ведь всегда будем вместе?». Я ответил: «Да, мы всегда будем вместе».</p>`,
+      text4: `<p>Из детства яснее всего вспоминаются дни ранней весны. Отец приходил домой, и я убегал гулять. Мне не хотелось видеться с друзьями. Я уходил на пустырь рядом с заброшенной стройкой. На том пустыре было много луж и глины с оставшимися отпечатками шин.</p>
+<p>Я находил какую-нибудь палку и мутил ей лужи. Поднималась грязь, она была похожа на взрывы. Грязь оседала, и проступали контуры. Я представлял, что это границы государств. Палкой я создавал «хорошие» и «плохие» государства, которые вели между собой войну.</p>
+<p>Государства то расширялись, то сужались. Кто-то завоевывал территорию, а потом, не в силах удержать, отдавал обратно. В конце моей игры оставалось месиво без «хороших» и «плохих». Я выбрасывал палку подальше и уходил.</p>`,
+      text5: `<p>Я вырос на Урале, рядом со Свердловском. В моём городе было три болота, три завода. И лес вокруг.</p>
+<p>Родители много работали. Мама возвращалась поздно, когда уже темно. У меня слегка кружилась голова, когда я слышал стук её каблуков возле двери. Я научился отличать этот стук от всех остальных.</p>
+<p>Отец был дальнобойщиком. Я мог не видеть его месяцами.</p>
+<p>Папа был отстранённым. Он казался недостижимым, я никогда не мог понять, о чём он думает. Я знал, как звучит бляшка его ремня. У него были добрые глаза. Я их любил. У меня такие же глаза.</p>
+<p>Когда он уезжал в очередную командировку, я кричал ему: «Слава богу, что ты уедешь». Я брал его тельняшку и клал ее рядом с подушкой.</p>
+<p>Всё, что окружало меня, казалось вечным.</p>`,
       mediumLabel: "Медиум",
       medium: "Фотография / Автофикция",
       yearLabel: "Год",
@@ -404,7 +436,7 @@ function onWheelStep(element, callback, enabled = () => true) {
   let quietTimer = null;
 
   element.addEventListener("wheel", (event) => {
-    if (!enabled()) return;
+    if (!enabled(event)) return;
     event.preventDefault();
 
     const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
@@ -421,6 +453,25 @@ function onWheelStep(element, callback, enabled = () => true) {
     lockedUntil = performance.now() + 450;
     callback(delta > 0 ? 1 : -1);
   }, { passive: false });
+}
+
+// Long texts scroll within their slide; left/right still change slides.
+function scrollProjectText(event, text) {
+  if (!text || text.scrollHeight <= text.clientHeight + 1) return false;
+  const distance = {
+    ArrowDown: 48, ArrowUp: -48,
+    PageDown: text.clientHeight * .85, PageUp: -text.clientHeight * .85,
+    " ": text.clientHeight * .85 * (event.shiftKey ? -1 : 1)
+  }[event.key];
+  if (!distance) return false;
+  event.preventDefault();
+  text.scrollBy({ top: distance, behavior: "instant" });
+  return true;
+}
+
+function isReadingText(event) {
+  const text = event.target.closest(".project-text");
+  return text && text.scrollHeight > text.clientHeight + 1;
 }
 
 const viewer = document.querySelector(".viewer");
@@ -492,7 +543,7 @@ if (viewer) {
     if (nextButton) nextButton.disabled = current >= slides.length - 1;
   }
 
-  onWheelStep(viewer, step, () => desktop.matches);
+  onWheelStep(viewer, step, (event) => desktop.matches && !isReadingText(event));
 
   let scrollTimer = null;
   viewer.addEventListener("scroll", () => {
@@ -515,6 +566,7 @@ if (viewer) {
     if (/^(input|textarea|select)$/i.test(target.tagName) || target.isContentEditable) return;
     // Space and Home/End keep their normal meaning on buttons and links.
     const onControl = /^(button|a)$/i.test(target.tagName);
+    if (!onControl && scrollProjectText(event, slides[slideIndex()].querySelector(".project-text"))) return;
 
     const keys = { ArrowDown: 1, ArrowRight: 1, PageDown: 1, ArrowUp: -1, ArrowLeft: -1, PageUp: -1 };
     if (!onControl) keys[" "] = event.shiftKey ? -1 : 1;
@@ -669,9 +721,8 @@ if (viewer) {
       img.src = slide.querySelector("img").dataset.full;
       return img;
     }
-    const text = document.createElement("div");
-    text.className = "screening-text";
-    text.innerHTML = slide.innerHTML;
+    const text = slide.querySelector(".project-text").cloneNode(true);
+    text.classList.add("screening-text");
     return text;
   }
 
@@ -739,7 +790,8 @@ if (viewer) {
     watchButton?.setAttribute("aria-label", t("watchLabel"));
   });
 
-  onWheelStep(screen, (direction) => { play(playing + direction); wake(); }, () => screen.classList.contains("is-open"));
+  onWheelStep(screen, (direction) => { play(playing + direction); wake(); },
+    (event) => screen.classList.contains("is-open") && !isReadingText(event));
 
   screen.addEventListener("mousemove", wake);
 
@@ -765,6 +817,11 @@ if (viewer) {
         event.preventDefault();
         startWatching();
       }
+      return;
+    }
+
+    if (scrollProjectText(event, stage.querySelector(".project-text"))) {
+      wake();
       return;
     }
 
