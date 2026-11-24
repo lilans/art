@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html class="narod-edition" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Father | Vladislav Lanskikh</title>
+<meta content="A playable memory." name="description"/>
+<link href="../favicon.ico" rel="icon" sizes="48x48"/>
+<link href="../assets/styles.css" rel="stylesheet"/>
+<link href="narod.css" rel="stylesheet"/>
+<link href="father.css" rel="stylesheet"/>
+</head>
+<body data-page="father">
+<div class="webpage">
+<header class="masthead">
+<a aria-label="Vladislav Lanskikh" data-i18n-aria="identity" data-preserve-lang="" href="index.html">
+<img alt="Vladislav Lanskikh" height="176" src="sunset.jpg" width="1168"/>
+</a>
+<div aria-label="Language" class="old-language" role="group">
+<a class="edition-return" data-preserve-lang="" data-i18n="mainEdition" href="../index.html">Main site</a>
+<button aria-pressed="true" data-language="en" lang="en" type="button">EN</button>
+<span aria-hidden="true">/</span>
+<button aria-pressed="false" data-language="ru" lang="ru" type="button">RU</button>
+</div>
+</header>
+<div class="room">
+<aside class="hallway">
+<img alt="" class="pulse" height="36" src="pulse.gif" width="90"/>
+<nav aria-label="Primary navigation" class="section-links">
+<a data-i18n="navWork" data-preserve-lang="" href="work.html">Work</a>
+<a data-i18n="navArchive" data-preserve-lang="" href="archive.html">Archive</a>
+<a data-i18n="navInfo" data-preserve-lang="" href="info.html">Info</a>
+<a data-i18n="navSnake" data-preserve-lang="" href="snake.html">Snake</a>
+<a aria-current="page" data-i18n="navFather" data-preserve-lang="" href="father.html">Father</a>
+</nav>
+<span aria-hidden="true" class="purple-eye"></span>
+</aside>
+<main><section class="inner-sheet snake-sheet father-sheet">
+<h1 class="bad-heading" data-i18n="heading">Father</h1>
+<div class="father-machine" id="father-game">
+<div class="father-playfield">
+  <div class="father-hud">
+    <label><span data-f="stamina">Stamina</span><meter id="f-stamina" min="0" max="100" value="100"></meter></label>
+    <label><span data-f="fear">Fear</span><meter id="f-fear" min="0" max="100" value="0"></meter></label>
+    <span id="f-key"><span id="f-key-name">Key</span><span id="f-key-slot" aria-hidden="true"></span></span>
+  </div>
+  <div class="father-screen">
+    <canvas id="f-board" width="640" height="480" tabindex="0" aria-label="Father game"></canvas>
+    <div id="f-overlay" role="status"><span id="f-message">Loading the apartment…</span></div>
+  </div>
+  <div class="father-objective" aria-live="polite"><span id="f-objective"></span><span id="f-prompt"></span></div>
+</div>
+<div class="father-input">
+  <p class="father-note father-content-note" data-f="note">Contains implied domestic violence.</p>
+  <div class="father-actions">
+    <button id="f-start" disabled>Start</button><button id="f-pause" disabled>Pause</button>
+    <button id="f-sound" aria-pressed="true">SFX on</button><button id="f-ambient" aria-pressed="true">Ambience on</button>
+  </div>
+  <div class="father-touch">
+    <div class="father-pad">
+      <button data-hold="up" data-f-aria="up" aria-label="Up">▲</button>
+      <button data-hold="left" data-f-aria="left" aria-label="Left">◀</button>
+      <button data-hold="down" data-f-aria="down" aria-label="Down">▼</button>
+      <button data-hold="right" data-f-aria="right" aria-label="Right">▶</button>
+    </div>
+    <div class="father-act">
+      <button data-hold="sprint" data-f="run">Run</button>
+      <button data-hold="quiet" data-f="quiet">Quiet</button>
+      <button data-hold="interact" data-f="interact">Interact</button>
+    </div>
+  </div>
+  <p class="father-note father-keyboard" data-f="hint">Arrows / WASD move · Shift run · Ctrl quiet · E / Space interact · P pause · R restart · M mute</p>
+</div>
+<div id="f-debug" hidden><button id="f-noai">AI on/off</button><button id="f-win">Preview escape</button><button id="f-lose">Preview caught</button><button id="f-grid">Grid / state</button><button id="f-reset">Reset</button><output id="f-debug-info"></output></div>
+<noscript>JavaScript is required.</noscript></div></section></main>
+</div>
+<footer class="outro">
+<div class="outro-tools">
+<span class="webmaster">WEBMASTER<b>V.L.</b></span>
+<nav aria-label="Social links" class="outro-links">
+<a data-i18n="socialsInstagram" href="https://www.instagram.com/vlans.ph/" rel="noopener noreferrer" target="_blank">Instagram</a>
+<a data-i18n="socialsTelegram" href="https://t.me/lansvlad" rel="noopener noreferrer" target="_blank">Telegram</a>
+<a class="info-email" data-mail="bW9jLmxpYW1nQGVib3Rzc2VuZ25paHRvbg==" hidden=""><span></span></a>
+</nav>
+</div>
+<p class="copyright"><span data-i18n="footer">2026 / Vladislav Lanskikh</span>   <a data-preserve-lang="" href="../index.html">lanskikh.art</a></p>
+</footer>
+</div>
+<script src="../assets/site.js"></script>
+<script src="father-audio.js"></script>
+<script src="father-render.js"></script>
+<script src="father.js"></script>
+</body>
+</html>

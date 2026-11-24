@@ -1,0 +1,198 @@
+.father-machine {
+  box-sizing: border-box;
+  width: min(100%, 760px);
+  padding: 7px;
+  border: 1px solid #51463b;
+  background: #080909;
+  color: #c8b292;
+  font: 12px/1.35 'Courier New', monospace;
+}
+
+.father-hud {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 7px 9px;
+  border: 1px solid #4a3d2e;
+  background: #100e0c;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.father-hud label, #f-key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.father-hud label { min-width: 0; }
+
+.father-hud meter {
+  appearance: none;
+  height: 13px;
+  width: clamp(34px, 12vw, 106px);
+  min-width: 0;
+}
+
+.father-hud meter::-webkit-meter-bar {
+  height: 13px;
+  border: 1px solid #574737;
+  border-radius: 0;
+  background: repeating-linear-gradient(90deg, #292018 0 8%, #15120f 8% 10%);
+}
+
+.father-hud meter::-webkit-meter-optimum-value {
+  background: repeating-linear-gradient(90deg, #af936e 0 8px, #564536 8px 10px);
+}
+
+.father-hud #f-fear::-webkit-meter-optimum-value {
+  background: repeating-linear-gradient(90deg, #a76a58 0 8px, #523632 8px 10px);
+}
+
+.father-hud meter::-moz-meter-bar { background: #af936e; }
+.father-hud #f-fear::-moz-meter-bar { background: #a76a58; }
+
+#f-key-slot {
+  display: grid;
+  width: 17px;
+  height: 15px;
+  place-items: center;
+  border: 1px solid #665541;
+  color: #d5b477;
+}
+
+.father-screen {
+  position: relative;
+  background: #000;
+}
+
+.father-screen canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  image-rendering: pixelated;
+  outline-offset: -2px;
+}
+
+.father-screen #f-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 12px;
+  place-content: end center;
+  pointer-events: none;
+  text-align: center;
+}
+
+.father-screen #f-overlay[hidden] { display: none; }
+
+#f-message {
+  padding: 6px 10px;
+  background: #0d0d0ce8;
+  border: 1px solid #4a4034;
+  color: #ddceaf;
+}
+
+.father-objective {
+  display: grid;
+  gap: 2px;
+  min-height: 35px;
+  padding: 7px 9px;
+  border: 1px solid #4a3d2e;
+  background: #100e0c;
+}
+
+#f-prompt { color: #b19774; }
+#f-prompt:empty { display: none; }
+
+.father-actions, .father-touch, .father-act {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.father-machine button {
+  font: 12px 'Courier New', monospace;
+  min-height: 44px;
+  padding: 5px 10px;
+  border: 1px solid #675642;
+  border-radius: 0;
+  background: #1d1915;
+  color: #e0caac;
+  cursor: pointer;
+}
+
+.father-machine button:enabled:hover {
+  background: #322720;
+}
+
+.father-machine button:disabled {
+  opacity: .48;
+  cursor: default;
+}
+
+.father-machine button:active, .father-machine button.held {
+  border-color: #c5a881;
+  background: #453629;
+}
+
+.father-machine button:focus-visible, .father-screen canvas:focus-visible {
+  outline: 2px solid #a88e66;
+}
+
+.father-touch {
+  align-items: center;
+  margin-top: 8px;
+  gap: 13px;
+}
+
+.father-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  gap: 3px;
+}
+
+.father-pad button, .father-act button { touch-action: none; user-select: none; }
+.father-pad button { padding: 0; font-size: 16px; }
+.father-pad [data-hold=up] { grid-column: 2; }
+.father-pad [data-hold=left] { grid-column: 1; grid-row: 2; }
+.father-pad [data-hold=down] { grid-column: 2; grid-row: 2; }
+.father-pad [data-hold=right] { grid-column: 3; grid-row: 2; }
+.father-act { max-width: 155px; }
+
+.father-note { font-size: 11px; margin: 8px 2px; }
+.father-content-note { color: #b5a389; }
+#f-debug { border: 1px dashed #665b4e; margin-top: 8px; padding: 6px; }
+#f-debug-info { display: block; white-space: pre-wrap; }
+
+@media (hover: hover) and (pointer: fine) and (min-width: 761px) {
+  .father-touch { display: none; }
+}
+
+@media (pointer: coarse) {
+  .father-keyboard { display: none; }
+}
+
+@media (max-width: 760px) {
+  .father-machine { margin-inline: auto; padding: 5px; }
+  .father-hud { font-size: 10px; gap: 5px; padding: 5px; }
+  .father-hud label, #f-key { gap: 4px; }
+  .father-machine button { padding-inline: 6px; }
+  .father-act { max-width: 128px; }
+  .father-touch { gap: 8px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 650px) {
+  .father-machine {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 185px;
+    align-items: start;
+    gap: 9px;
+  }
+  .father-touch { flex-direction: column; }
+  #f-debug { grid-column: 1 / -1; }
+}
