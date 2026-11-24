@@ -7,6 +7,11 @@ const copy = {
       navInfo: "Info",
       socialsInstagram: "Instagram",
       socialsTelegram: "Telegram",
+      switchTheme: {
+        light: "Switch to light theme",
+        dark: "Switch to dark theme",
+        narod: "Switch to Narod theme"
+      },
       footer: "2026 / Vladislav Lanskikh"
     },
     home: {
@@ -110,6 +115,11 @@ const copy = {
       navInfo: "Инфо",
       socialsInstagram: "Instagram",
       socialsTelegram: "Telegram",
+      switchTheme: {
+        light: "Включить светлую тему",
+        dark: "Включить тёмную тему",
+        narod: "Включить тему «Народ»"
+      },
       footer: "2026 / Владислав Ланских"
     },
     home: {
@@ -318,9 +328,12 @@ document.querySelectorAll("[data-project-tab]").forEach((button) => {
 setLanguage(initialLanguage(), false, false);
 
 
+const themes = ["light", "dark", "narod"];
+const themeToggle = document.querySelector(".theme-toggle");
+
 function initialTheme() {
   const saved = localStorage.getItem("site-theme");
-  if (saved === "dark" || saved === "light") return saved;
+  if (themes.includes(saved)) return saved;
 
   return window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -328,35 +341,29 @@ function initialTheme() {
       : "light";
 }
 
-function setTheme(theme) {
-  if (theme !== "dark" && theme !== "light") return;
+function nextTheme() {
+  const current = themes.indexOf(document.documentElement.dataset.theme);
+  return themes[(current + 1) % themes.length];
+}
 
+function updateThemeToggle() {
+  if (!themeToggle) return;
+
+  const next = nextTheme();
+  const label = lookup(document.documentElement.lang, "switchTheme")[next];
+  themeToggle.dataset.nextTheme = next;
+  themeToggle.setAttribute("aria-label", label);
+  themeToggle.title = label;
+}
+
+function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem("site-theme", theme);
-
-  const button = document.querySelector(".theme-toggle");
-  if (button) {
-    const dark = theme === "dark";
-    button.setAttribute(
-      "aria-label",
-      dark ? "Switch to light theme" : "Switch to dark theme"
-    );
-    button.setAttribute(
-      "title",
-      dark ? "Light theme" : "Dark theme"
-    );
-  }
+  updateThemeToggle();
 }
 
-const themeToggle = document.querySelector(".theme-toggle");
-
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const current = document.documentElement.dataset.theme || initialTheme();
-    setTheme(current === "dark" ? "light" : "dark");
-  });
-}
-
+themeToggle?.addEventListener("click", () => setTheme(nextTheme()));
+document.addEventListener("site:language", updateThemeToggle);
 setTheme(initialTheme());
 
 
