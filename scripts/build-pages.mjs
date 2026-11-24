@@ -1,4 +1,4 @@
-// Only publish website assets. Never upload Worker source, private config or Git metadata.
+// Only publish website assets. Never upload private config or Git metadata.
 import {cpSync, mkdirSync, readdirSync, rmSync, statSync} from 'node:fs';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';

@@ -1,2 +1,0 @@
-CHAT_ADMIN_TOKEN=replace-with-a-random-string-at-least-32-characters
-ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
