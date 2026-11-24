@@ -17,7 +17,7 @@ Language:
 - Internal links preserve the active language.
 
 Deploy:
-Commit all files to the repository root. Cloudflare can serve the repository as a static site with no build command.
+For the messenger branch, deploy only the static `dist/` directory built by `node scripts/build-pages.mjs`. Deploy the Worker separately; see MESSENGER_DEPLOY_RU.md.
 
 Project page:
 - Sequence is a paged viewer: 23 photos + 5 text slides (after frames 04, 08, 14, 19, 23), one per screen.
@@ -47,7 +47,11 @@ Favicon:
 Open `narod/index.html` for the rainbow/trout alternative. Root `index.html` remains the original minimalist website. No build required. For full functionality use a static server, e.g. `python -m http.server 8000` from the extracted folder, then open `http://localhost:8000/narod/`.
 
 ## Edition switch and mobile layout
-Every main-site page has a **Narod / Народ** link in its header. The retro edition has a **Main site / Основная версия** link next to its language controls. Both links go to the matching page in the other edition and preserve `lang`. The sun/moon toggle is independent and controls only the original minimalist design. Narod III retains its desktop artwork, with a compact mobile frieze, two-row mosaic, two-column thumbnails, and normal vertical project scrolling. Start a local server from the archive root: `python -m http.server 8000`; open `http://localhost:8000/`. Deploy the entire folder, including `narod/` and `assets/`.
+Every main-site page has a **Narod / Народ** link in its header. The retro edition has a **Main site / Основная версия** link next to its language controls. Both links go to the matching page in the other edition and preserve `lang`. The sun/moon toggle is independent and controls only the original minimalist design. Narod III retains its desktop artwork, with a compact mobile frieze, two-row mosaic, two-column thumbnails, and normal vertical project scrolling. Start a local server from the archive root: `python -m http.server 8000`; open `http://localhost:8000/`. Publish the generated `dist/`, including `narod/` and `assets/`.
 
 ## Snake (Narod only)
 `narod/snake.html` is accessible from the Narod navigation. Classic grid Snake: arrow keys/WASD, swipe or on-screen arrows, start/restart and pause. Score increases by 10 per food; best score is stored locally where supported. Game pauses when the tab is hidden. No libraries or server API required. EN/RU follows the site's existing language controls. The link to the main edition returns to its home page, since the game is exclusive to Narod.
+
+## Narod messenger — «Случаи»
+
+The floating public chat uses a separately deployed Cloudflare Worker and SQLite Durable Object. See [MESSENGER_DEPLOY_RU.md](MESSENGER_DEPLOY_RU.md) for setup, deployment and moderation. **Publish only `dist/`** (`node scripts/build-pages.mjs`), not the repository root. The Worker is deployed separately from `chat-worker/`.

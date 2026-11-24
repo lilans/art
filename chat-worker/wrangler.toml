@@ -1,0 +1,14 @@
+name = "lanskikh-narod-chat"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = false
+preview_urls = false
+routes = [{ pattern = "chat.lanskikh.art", custom_domain = true }]
+[vars]
+ALLOWED_ORIGINS = "https://lanskikh.art,https://www.lanskikh.art"
+[[durable_objects.bindings]]
+name = "CHAT"
+class_name = "ChatRoom"
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatRoom"]
