@@ -17,7 +17,7 @@ Language:
 - Internal links preserve the active language.
 
 Deploy:
-For the messenger branch, deploy only the static `dist/` directory built by `node scripts/build-pages.mjs`. Deploy the Worker separately; see MESSENGER_DEPLOY_RU.md.
+Build the static website with `node scripts/build-pages.mjs` and deploy the `dist/` directory to Cloudflare Pages.
 
 Project page:
 - Sequence is a paged viewer: 23 photos + 5 text slides (after frames 04, 08, 14, 19, 23), one per screen.
@@ -51,7 +51,3 @@ Every main-site page has a **Narod / Народ** link in its header. The retro 
 
 ## Snake (Narod only)
 `narod/snake.html` is accessible from the Narod navigation. Classic grid Snake: arrow keys/WASD, swipe or on-screen arrows, start/restart and pause. Score increases by 10 per food; best score is stored locally where supported. Game pauses when the tab is hidden. No libraries or server API required. EN/RU follows the site's existing language controls. The link to the main edition returns to its home page, since the game is exclusive to Narod.
-
-## Narod messenger — «Случаи»
-
-The floating presence-only installation has no messaging API. Drafts remain in the browser and the Send button evades interaction. The separately deployed Cloudflare Worker and SQLite Durable Object provide only assigned names and presence. See [MESSENGER_DEPLOY_RU.md](MESSENGER_DEPLOY_RU.md) for upgrade and deployment. **Publish only `dist/`** (`node scripts/build-pages.mjs`), not the repository root. The Worker is deployed separately from `chat-worker/`.
