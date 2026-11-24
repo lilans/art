@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html class="narod-edition" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Snake | Vladislav Lanskikh</title>
+<meta content="Classic Snake game." name="description"/>
+<link href="../favicon.ico" rel="icon" sizes="48x48"/>
+<link href="../assets/styles.css" rel="stylesheet"/>
+<link href="narod.css" rel="stylesheet"/>
+</head>
+<body data-page="snake">
+<div class="webpage">
+<header class="masthead">
+<a aria-label="Vladislav Lanskikh" data-i18n-aria="identity" data-preserve-lang="" href="index.html">
+<img alt="Vladislav Lanskikh" height="176" src="sunset.jpg" width="1168"/>
+</a>
+<div aria-label="Language" class="old-language" role="group">
+<a class="edition-return" data-preserve-lang="" data-i18n="mainEdition" href="../index.html">Main site</a>
+<button aria-pressed="true" data-language="en" lang="en" type="button">EN</button>
+<span aria-hidden="true">/</span>
+<button aria-pressed="false" data-language="ru" lang="ru" type="button">RU</button>
+</div>
+</header>
+<div class="room">
+<aside class="hallway">
+<img alt="" class="pulse" height="36" src="pulse.gif" width="90"/>
+<nav aria-label="Primary navigation" class="section-links">
+<a data-i18n="navWork" data-preserve-lang="" href="work.html">Work</a>
+<a data-i18n="navArchive" data-preserve-lang="" href="archive.html">Archive</a>
+<a data-i18n="navInfo" data-preserve-lang="" href="info.html">Info</a>
+<a aria-current="page" data-i18n="navSnake" data-preserve-lang="" href="snake.html">Snake</a>
+</nav>
+<span aria-hidden="true" class="purple-eye"></span>
+</aside>
+<main>
+<section class="inner-sheet snake-sheet">
+<h1 class="bad-heading" data-i18n="heading">Snake</h1>
+<div class="snake-machine">
+  <div class="snake-top"><span>SNAKE</span><span>1 PLAYER</span></div>
+  <div class="snake-stats"><span><span data-i18n="snakeScore">Score</span>: <b id="snake-score">000</b></span><span><span data-i18n="snakeBest">Best</span>: <b id="snake-best">000</b></span></div>
+  <div class="snake-screen"><canvas id="snake-board" width="400" height="400" tabindex="0" data-i18n-aria="snakeBoard" aria-label="Snake game board"></canvas><div class="snake-message" id="snake-message" role="status"><span id="snake-status">Press Start</span></div></div>
+  <div class="snake-actions"><button id="snake-start" type="button" data-i18n="snakeStart">Start / Restart</button><button id="snake-pause" type="button" data-i18n="snakePause">Pause</button></div>
+  <div class="snake-pad" role="group" data-i18n-aria="snakeControls" aria-label="Direction controls">
+    <button type="button" data-dir="up" data-i18n-aria="snakeUp" aria-label="Up">▲</button>
+    <button type="button" data-dir="left" data-i18n-aria="snakeLeft" aria-label="Left">◀</button>
+    <button type="button" data-dir="down" data-i18n-aria="snakeDown" aria-label="Down">▼</button>
+    <button type="button" data-dir="right" data-i18n-aria="snakeRight" aria-label="Right">▶</button>
+  </div>
+  <p class="snake-hint" data-i18n="snakeHint">Arrow keys / WASD. On mobile: swipe or use the buttons.</p>
+  <noscript>JavaScript is required to play.</noscript>
+</div>
+</section>
+</main>
+</div>
+<footer class="outro">
+<div class="outro-tools">
+<span class="webmaster">WEBMASTER<b>V.L.</b></span>
+<nav aria-label="Social links" class="outro-links">
+<a data-i18n="socialsInstagram" href="https://www.instagram.com/vlans.ph/" rel="noopener noreferrer" target="_blank">Instagram</a>
+<a data-i18n="socialsTelegram" href="https://t.me/lansvlad" rel="noopener noreferrer" target="_blank">Telegram</a>
+<a class="info-email" data-mail="bW9jLmxpYW1nQGVib3Rzc2VuZ25paHRvbg==" hidden=""><span></span></a>
+</nav>
+</div>
+<p class="copyright"><span data-i18n="footer">2026 / Vladislav Lanskikh</span>   <a data-preserve-lang="" href="../index.html">lanskikh.art</a></p>
+</footer>
+</div>
+<script src="../assets/site.js"></script>
+<script src="snake.js"></script>
+</body>
+</html>

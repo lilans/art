@@ -5,14 +5,23 @@ const copy = {
       navWork: "Work",
       navArchive: "Archive",
       navInfo: "Info",
+      navSnake: "Snake",
+      narodEdition: "Narod",
+      mainEdition: "Main site",
       socialsInstagram: "Instagram",
       socialsTelegram: "Telegram",
+      switchTheme: {
+        light: "Switch to light theme",
+        dark: "Switch to dark theme",
+        narod: "Switch to Narod theme"
+      },
       footer: "2026 / Vladislav Lanskikh"
     },
     home: {
       title: "Vladislav Lanskikh",
       description: "Photography and visual art by Vladislav Lanskikh.",
       firstName: "Vladislav",
+      narodWelcome: "Welcome to my site!",
       lastName: "Lanskikh",
       role: "Artist & photographer<br>based in Saint Petersburg",
       intro: "Photography, text and personal archive. Selected works and ongoing projects.",
@@ -55,6 +64,27 @@ const copy = {
       locationLabel: "Location",
       contactLabel: "Contacts",
       infoNote: "The photography and autofiction project Thank God You're Leaving is presented in the Work section."
+    },
+    snake: {
+      title: "Snake — Vladislav Lanskikh",
+      description: "Classic Snake game.",
+      heading: "Snake",
+      snakeScore: "Score",
+      snakeBest: "Best",
+      snakeStart: "Start / Restart",
+      snakePause: "Pause",
+      snakeResume: "Resume",
+      snakeReady: "Press Start",
+      snakeOver: "Game over",
+      snakePaused: "Paused",
+      snakeWin: "You win!",
+      snakeHint: "Arrow keys / WASD. On mobile: swipe or use the buttons.",
+      snakeBoard: "Snake game board",
+      snakeControls: "Direction controls",
+      snakeUp: "Up",
+      snakeDown: "Down",
+      snakeLeft: "Left",
+      snakeRight: "Right",
     },
     project: {
       title: "Thank God You're Leaving — Vladislav Lanskikh",
@@ -108,14 +138,23 @@ const copy = {
       navWork: "Работы",
       navArchive: "Архив",
       navInfo: "Инфо",
+      navSnake: "Змейка",
+      narodEdition: "Народ",
+      mainEdition: "Основная версия",
       socialsInstagram: "Instagram",
       socialsTelegram: "Telegram",
+      switchTheme: {
+        light: "Включить светлую тему",
+        dark: "Включить тёмную тему",
+        narod: "Включить тему «Народ»"
+      },
       footer: "2026 / Владислав Ланских"
     },
     home: {
       title: "Владислав Ланских",
       description: "Фотография и визуальное искусство Владислава Ланских.",
       firstName: "Владислав",
+      narodWelcome: "Приветствую на моём сайте!",
       lastName: "Ланских",
       role: "Художник и фотограф<br>Санкт-Петербург",
       intro: "Фотография, текст и личный архив. Избранные работы и проекты в процессе.",
@@ -158,6 +197,27 @@ const copy = {
       locationLabel: "Город",
       contactLabel: "Контакты",
       infoNote: "Фотографический и автофикциональный проект «Слава богу, что ты уедешь» представлен в разделе «Работы»."
+    },
+    snake: {
+      title: "Змейка — Владислав Ланских",
+      description: "Классическая игра «Змейка».",
+      heading: "Змейка",
+      snakeScore: "Счёт",
+      snakeBest: "Рекорд",
+      snakeStart: "Старт / Заново",
+      snakePause: "Пауза",
+      snakeResume: "Продолжить",
+      snakeReady: "Нажмите «Старт»",
+      snakeOver: "Игра окончена",
+      snakePaused: "Пауза",
+      snakeWin: "Победа!",
+      snakeHint: "Стрелки / WASD. На телефоне — свайпы или кнопки.",
+      snakeBoard: "Игровое поле змейки",
+      snakeControls: "Управление направлением",
+      snakeUp: "Вверх",
+      snakeDown: "Вниз",
+      snakeLeft: "Влево",
+      snakeRight: "Вправо",
     },
     project: {
       title: "Слава богу, что ты уедешь — Владислав Ланских",
@@ -210,12 +270,20 @@ function currentPage() {
   return document.body.dataset.page || "home";
 }
 
+function readPreference(key) {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function savePreference(key, value) {
+  try { localStorage.setItem(key, value); } catch { /* Private/local mode. */ }
+}
+
 function initialLanguage() {
   const url = new URL(window.location.href);
   const q = url.searchParams.get("lang");
   if (q === "en" || q === "ru") return q;
 
-  const saved = localStorage.getItem("site-language");
+  const saved = readPreference("site-language");
   if (saved === "en" || saved === "ru") return saved;
 
   return "en";
@@ -232,7 +300,7 @@ function syncLinks(language) {
     if (!href || href.startsWith("http")) return;
     const url = new URL(href, window.location.href);
     url.searchParams.set("lang", language);
-    link.href = url.pathname + url.search + url.hash;
+    link.href = url.protocol === "file:" ? url.href : url.pathname + url.search + url.hash;
   });
 }
 
@@ -270,7 +338,7 @@ function applyLanguage(language, updateUrl) {
     );
   });
 
-  localStorage.setItem("site-language", language);
+  savePreference("site-language", language);
   document.dispatchEvent(new CustomEvent("site:language"));
   syncLinks(language);
 
@@ -318,9 +386,12 @@ document.querySelectorAll("[data-project-tab]").forEach((button) => {
 setLanguage(initialLanguage(), false, false);
 
 
+const themes = ["light", "dark"];
+const themeToggle = document.querySelector(".theme-toggle");
+
 function initialTheme() {
-  const saved = localStorage.getItem("site-theme");
-  if (saved === "dark" || saved === "light") return saved;
+  const saved = readPreference("site-theme");
+  if (themes.includes(saved)) return saved;
 
   return window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -328,36 +399,31 @@ function initialTheme() {
       : "light";
 }
 
+function nextTheme() {
+  const current = themes.indexOf(document.documentElement.dataset.theme);
+  return themes[(current + 1) % themes.length];
+}
+
+function updateThemeToggle() {
+  if (!themeToggle) return;
+
+  const next = nextTheme();
+  const label = lookup(document.documentElement.lang, "switchTheme")[next];
+  themeToggle.dataset.nextTheme = next;
+  themeToggle.setAttribute("aria-label", label);
+  themeToggle.title = label;
+}
+
 function setTheme(theme) {
-  if (theme !== "dark" && theme !== "light") return;
-
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem("site-theme", theme);
-
-  const button = document.querySelector(".theme-toggle");
-  if (button) {
-    const dark = theme === "dark";
-    button.setAttribute(
-      "aria-label",
-      dark ? "Switch to light theme" : "Switch to dark theme"
-    );
-    button.setAttribute(
-      "title",
-      dark ? "Light theme" : "Dark theme"
-    );
-  }
+  savePreference("site-theme", theme);
+  updateThemeToggle();
 }
 
-const themeToggle = document.querySelector(".theme-toggle");
-
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const current = document.documentElement.dataset.theme || initialTheme();
-    setTheme(current === "dark" ? "light" : "dark");
-  });
-}
-
-setTheme(initialTheme());
+themeToggle?.addEventListener("click", () => setTheme(nextTheme()));
+document.addEventListener("site:language", updateThemeToggle);
+// The separate Narod edition has its own palette; never overwrite the main theme.
+if (themeToggle) setTheme(initialTheme());
 
 
 /* Focus rings only after the visitor starts using Tab. */

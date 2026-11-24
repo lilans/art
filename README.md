@@ -42,3 +42,12 @@ Favicon:
 - assets/icons/favicon.svg — main icon (CRT screen with the dot of a switched-off tube); adapts to dark browser UI
 - favicon.ico (16/32/48) at the root — fallback for older browsers and for requests to /favicon.ico
 - assets/icons/apple-touch-icon.png (180) and icon-512.png — home screen / bookmarks
+
+## Narod III
+Open `narod/index.html` for the rainbow/trout alternative. Root `index.html` remains the original minimalist website. No build required. For full functionality use a static server, e.g. `python -m http.server 8000` from the extracted folder, then open `http://localhost:8000/narod/`.
+
+## Edition switch and mobile layout
+Every main-site page has a **Narod / Народ** link in its header. The retro edition has a **Main site / Основная версия** link next to its language controls. Both links go to the matching page in the other edition and preserve `lang`. The sun/moon toggle is independent and controls only the original minimalist design. Narod III retains its desktop artwork, with a compact mobile frieze, two-row mosaic, two-column thumbnails, and normal vertical project scrolling. Start a local server from the archive root: `python -m http.server 8000`; open `http://localhost:8000/`. Deploy the entire folder, including `narod/` and `assets/`.
+
+## Snake (Narod only)
+`narod/snake.html` is accessible from the Narod navigation. Classic grid Snake: arrow keys/WASD, swipe or on-screen arrows, start/restart and pause. Score increases by 10 per food; best score is stored locally where supported. Game pauses when the tab is hidden. No libraries or server API required. EN/RU follows the site's existing language controls. The link to the main edition returns to its home page, since the game is exclusive to Narod.
