@@ -1,160 +1,86 @@
-# СЛУЧАИ — общий чат Narod
+# «Случаи» — присутствие без переписки
 
-Ветка `add_narod_messenger` создана от `main` (`df794b2`). В присланном архиве `add_otec_game` (`b9391f0`) содержит незакоммиченные изменения; они не переносились и не менялись. Основное портфолио и Snake не переписаны. Ветка содержит чат на шести существующих страницах Narod. После объединения с веткой игры добавьте те же теги в новые HTML-страницы Narod, в частности `father.html`.
+Обновление к коммиту `465773b` (add_narod_messenger). Новая ветка `sluchai_presence_only`. Игра «Отец» и остальные ресурсы сайта не изменены. Окно, язык, случайные имена, сворачивание, перетаскивание и список присутствующих сохранены.
 
-## 1. Импорт Git-ветки (PowerShell)
+Поле ввода работает локально, без формы отправки, без чтения текста сетевым кодом, без сохранения в sessionStorage. Enter не отправляет текст; кнопка убегает от указателя, касания и активации с клавиатуры, оставаясь внутри окна. При уходе со страницы черновик очищается. В ленте нет сообщений и системных реплик. Примечание под окном сообщает, что текст остаётся в окне. Список пользователей настоящий, не симулированный.
 
-Распакуйте поставляемый ZIP **вне** своего репозитория. В своём существующем репозитории выполните:
+## 1. Импорт обновления
 
-```powershell
-git status
-git fetch "C:\путь\к\архиву\add_narod_messenger.bundle" refs/heads/add_narod_messenger:refs/heads/add_narod_messenger
-git log -1 add_narod_messenger
-git push -u origin add_narod_messenger
-```
-
-Bundle содержит новый коммит и опирается на исходный `main`. Команда fetch не меняет рабочие файлы, HEAD или ветку игры. Если ветка с таким именем уже существует, сначала проверьте её; не используйте принудительное обновление. Если хочется работать параллельно с незакоммиченной игрой, создайте второй worktree (в соседней, ещё не существующей папке):
+Распаковать архив вне репозитория. Из существующего репозитория (можно даже при незакоммиченных изменениях другой ветки):
 
 ```powershell
-git worktree add ..\lanskikh-messenger add_narod_messenger
-cd ..\lanskikh-messenger
+git fetch "C:\путь\к\sluchai_presence_only.bundle" refs/heads/sluchai_presence_only:refs/heads/sluchai_presence_only
+git worktree add ..\lanskikh-presence sluchai_presence_only
+cd ..\lanskikh-presence
 ```
 
-Иначе после сохранения текущих изменений можно выполнить `git switch add_narod_messenger`. Не выполняйте reset/clean в каталоге игры.
+Bundle предполагает наличие предыдущего коммита `465773b`. Если Git говорит о недостающих prerequisite, сначала импортировать предыдущую ветку из `add_narod_messenger.bundle`. Если имя новой ветки уже занято, не перезаписывать её принудительно; проверить содержимое. Никаких reset/clean в каталоге игры.
 
-## 2. Как устроено
+## 2. В первую очередь обновить сервер (это не просто визуальный эффект)
 
-Frontend: `narod/chat.js`, `chat.css`, `chat-config.js`. Автоматическое открытие при первом посещении Narod в новой вкладке, без захвата фокуса. Закрытие и сворачивание сохраняются до конца сессии вкладки. Сервер назначает русское абсурдное имя, которое сохраняется при переходах и переподключении в этой вкладке. Отдельная вкладка обычно получает новое имя (дублированная вкладка может наследовать sessionStorage). 64 исходных имени + комбинации; активные и недавно использованные имена не повторяются. Название отсылает к циклу Хармса «Случаи»; имена — оригинальные, не цитаты. RU/EN интерфейс, сами имена остаются русскими.
+**Обновление необратимо для текущей публичной истории.** Новый код при запуске того же Durable Object удаляет таблицу `messages` и старые лимиты сообщений. Старый endpoint `/ws` и весь `/admin/*` отвечают 410 Gone, а соединения старого протокола закрываются. Новый endpoint `/presence` принимает только строго проверенные hello (с необязательным 64-символьным токеном) и ping. Иные кадры отклоняются и соединение закрывается. Нет кода чтения/записи/рассылки переписки. ID объекта `public-narod-v1`, имя Worker, binding CHAT, класс ChatRoom и миграция v1 не изменены — это обновление существующего объекта, не создание новой базы.
 
-Backend: отдельный Cloudflare Worker `lanskikh-narod-chat` + один SQLite Durable Object `ChatRoom`, WebSocket Hibernation API. История максимум 100 сообщений за последние 24 часа, удаление устаревших данных при активности и периодическим alarm (физическая очистка может происходить с задержкой). Лимит 50 соединений на комнату, 5 на IP, 12 сообщений/мин на сессию, 30/мин на IP, интервал 1,2 с, 500 Unicode-символов. IP используется в виде HMAC для ограничения частоты, не публикуется; публичная история не содержит IP. Секрет администратора хранится в Worker; не помещать в Git или frontend. Нет регистрации, личных сообщений и вложений. Это небольшой публичный чат, не анонимный защищённый мессенджер. Защита от спама базовая, не гарантирует защиту от распределённых атак; модерирование ручное. Не публиковать личные данные.
-
-## 3. Локальная проверка
-
-Требуется Node.js 22+ (рекомендуется 22 LTS или новее) и Python 3 для простого статического сервера.
+Из нового worktree:
 
 ```powershell
 cd chat-worker
 npm install
 npm test
-Copy-Item .dev.vars.example .dev.vars
-npm run dev
-```
-
-`.dev.vars` уже исключён из Git. Замените тестовый токен произвольной случайной строкой от 32 символов; **не** используйте производственный секрет локально. В другом терминале из корня этой рабочей копии:
-
-```powershell
-python -m http.server 8000 --bind 127.0.0.1
-```
-
-Откройте `http://127.0.0.1:8000/narod/index.html?lang=ru` в обычном и приватном окне. Должны появиться разные имена и оба пользователя в списке. Проверьте обмен сообщениями, смену языка, закрытие/открытие, обновление страницы, мобильную ширину, Snake. Для local Worker используется порт 8787, а допустимые origins задаются в `.dev.vars`. Не используйте `file://`.
-
-## 4. Развёртывание Worker в Cloudflare
-
-Войдите в аккаунт Cloudflare, где уже находится зона `lanskikh.art`. Нужны права на Workers, Durable Objects и custom domains. SQLite Durable Objects доступны на Free; не нужно подключать платный тариф для обычного небольшого чата. Квоты действуют, поэтому проверьте Usage после запуска.
-
-Из `chat-worker/`:
-
-```powershell
-npm install
-npx wrangler login
 npx wrangler whoami
 npx wrangler deploy
-```
-
-Если предложено выбрать аккаунт, выберите тот же, где домен. В `wrangler.toml` уже указаны `chat.lanskikh.art` как Custom Domain, Durable Object binding `CHAT` и миграция `new_sqlite_classes = ["ChatRoom"]`. Wrangler создаёт Worker, namespace SQLite и маршрут; вручную создавать БД, CNAME или Pages Functions не нужно. Если `chat.lanskikh.art` уже занят, не удаляйте существующие записи вслепую — проверьте конфликт или выберите другое свободное имя и измените `chat-config.js` и конфигурацию Worker. Дождитесь готовности TLS.
-
-Сгенерируйте стойкий случайный секрет (например, командой ниже, сохраните в менеджере паролей; не публикуйте вывод):
-
-```powershell
-node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
-npx wrangler secret put CHAT_ADMIN_TOKEN
-```
-
-Вставьте секрет в интерактивный запрос Wrangler. До настройки секрета Worker намеренно отвечает 503. Проверка:
-
-```powershell
 Invoke-RestMethod https://chat.lanskikh.art/health
 ```
 
-Ожидается `ok: True`. В Dashboard: Workers & Pages → `lanskikh-narod-chat` → Settings → Domains & Routes, проверьте `chat.lanskikh.art`; в Variables and Secrets — наличие `CHAT_ADMIN_TOKEN` (значение скрыто). В зоне Network убедитесь, что WebSockets разрешены. Не меняйте настройки основного домена и его Pages custom domain.
+Ожидаемые поля: `ok: True`, `mode: presence-only`, `protocol: 2`. Запрос health обращается к существующему Durable Object и инициирует миграцию; не ограничиваться проверкой успешного deploy. Если 503 — проверить наличие прежнего CHAT_ADMIN_TOKEN (минимум 32 символа) в Variables and Secrets. Секрет всё ещё используется для HMAC технических ограничений по IP; заново генерировать его не нужно. Не добавлять его в Git. Если авторизация Wrangler уже есть, повторный login не нужен.
 
-## 5. Публикация фронтенда на существующем Pages
-
-**Сначала** протестируйте ветку локально, потом объедините её с main через Pull Request или локально (только чистый worktree):
+Проверить старые endpoints (PowerShell 7):
 
 ```powershell
-git switch main
-git pull --ff-only origin main
-git merge add_narod_messenger
-git push origin main
+(Invoke-WebRequest https://chat.lanskikh.art/ws -SkipHttpErrorCheck).StatusCode
+(Invoke-WebRequest https://chat.lanskikh.art/admin/history -SkipHttpErrorCheck).StatusCode
 ```
 
-Если игру уже объединяли с main, решите возможные конфликты HTML, сохранив обе функциональности. Если игру ещё разрабатываете — её ветка остаётся нетронутой; при будущем слиянии добавьте в `narod/father.html` (и новые страницы Narod) перед `</head>`:
+Оба должны вернуть 410. В Windows PowerShell 5.1 запросы вернут исключение с HTTP 410; это ожидаемо. Старые команды очистки и модерации больше не нужны. Не возвращать старый Worker rollback без понимания последствий: он снова разрешит переписку. Отключить Git-сборки Worker либо настроить их только на эту версию кода, чтобы старый backend не был случайно развёрнут поверх нового. При использовании ручного Wrangler не требуются Worker Previews. Старые страницы могут оставаться открытыми до обновления: после серверной миграции они не смогут подключиться к /ws; следует перезагрузить вкладки. До миграции старый код ещё работает.
 
-```html
-<link rel="stylesheet" href="chat.css">
-```
+DROP TABLE удаляет доступную приложению историю; не утверждается, что все резервные копии, журналы платформы или снимки PITR удалены. При необходимости отдельно изучить сроки хранения Cloudflare. Не включать логирование входящих WebSocket payload.
 
-перед `</body>`, после существующих скриптов:
+## 3. Опубликовать интерфейс
 
-```html
-<script src="chat-config.js"></script>
-<script src="chat.js"></script>
-```
-
-Для Git-integrated Pages в существующем проекте (Workers & Pages → ваш проект → Settings → Build / Build & deployments) установите после появления скрипта в production branch:
-
-- Framework preset: None.
-- Root directory: корень репозитория (пусто или `/`).
-- Build command: `node scripts/build-pages.mjs`.
-- Build output directory: `dist`.
-- Production branch: существующая `main` (не менять на ветку чата).
-
-Запустите новый deployment (или retry после сохранения настроек). Если предыдущая автоматическая сборка успела стартовать с настройками старого сайта, перезапустите с новым output directory. Скрипт собирает только HTML, favicon, `assets/` и `narod/`; серверный код и секреты не публикуются. Если в будущем добавляются новые публичные корневые каталоги, обновите список в скрипте. Обычный Git push не публикует Worker автоматически: он разворачивается отдельно.
-
-Если проект Pages использует Direct Upload, из корня чистого checkout ветки, которую хотите опубликовать:
+Из корня нового worktree:
 
 ```powershell
+cd ..
 node scripts/build-pages.mjs
-npx --yes wrangler@4 pages deploy dist --project-name ИМЯ_СУЩЕСТВУЮЩЕГО_PAGES_ПРОЕКТА --branch main
+git push -u origin sluchai_presence_only
 ```
 
-Или загрузите `dist` через Dashboard. Имя проекта возьмите из своего Dashboard; не создавайте новый Pages-проект. Не загружайте весь репозиторий.
+Открыть PR в `main` и объединить после проверки. Если первоначальный чат уже в main, PR добавит только обновление; если нет, он также включает исходную реализацию. При конфликтах сохранить изменения игры. Если отец добавлен после прежней версии, проверить подключение на `narod/father.html` (теги ниже).
 
-Preview-домены Pages по умолчанию **не** могут подключиться к production-чату. Если нужен preview, добавьте его точный HTTPS origin в `ALLOWED_ORIGINS` через `chat-worker/wrangler.toml` (через запятую, без пути/слэша), затем повторите `npx wrangler deploy`. Preview будет использовать ту же публичную комнату. Для изолированного тестирования предпочтительнее локальная проверка; не разрешайте все `*.pages.dev` и не используйте `*`. Production origins уже указаны: `https://lanskikh.art,https://www.lanskikh.art`.
+Для существующего Git-integrated Pages-проекта: production branch main; framework None; root корень; Build command `node scripts/build-pages.mjs`; output `dist`. Дождаться успешного production deploy. Для Direct Upload — загрузить **только содержимое dist** в существующий проект. Конфигурация доменов остаётся прежней. Параметры версии в ссылках chat.css, chat-config.js, chat.js изменены, чтобы браузер не использовал старый кэш. При будущих новых Narod-страницах добавить перед `</head>`:
 
-## 6. Проверка после публикации
-
-Откройте `https://lanskikh.art/narod/` в обычном и приватном окнах. Проверьте, что имена различаются, сообщения передаются в обе стороны, обновление вкладки сохраняет имя, при закрытии пользователь исчезает из списка, а на `https://lanskikh.art/` окна нет. DevTools → Network → WS: соединение `wss://chat.lanskikh.art/ws`, статус 101. Если 403 — сверить точный Origin и ALLOWED_ORIGINS; 503 — секрет не настроен; 429 — лимит соединений. При отключении сети интерфейс сообщает о проблеме и переподключается. Историю тестов можно очистить.
-
-## 7. Модерация
-
-В отдельном PowerShell введите секрет через защищённый prompt (не записывайте в историю команд):
-
-```powershell
-$secret = Read-Host 'Chat admin token' -AsSecureString
-$token = [System.Net.NetworkCredential]::new('', $secret).Password
-$headers = @{Authorization = "Bearer $token"}
-Invoke-RestMethod https://chat.lanskikh.art/admin/history -Headers $headers
-# Удалить конкретное сообщение; вместо 42 указать id из history:
-Invoke-RestMethod https://chat.lanskikh.art/admin/delete -Method Post -Headers $headers -ContentType 'application/json' -Body '{"id":42}'
-# Очистить всю историю (необратимо):
-# Invoke-RestMethod https://chat.lanskikh.art/admin/clear -Method Post -Headers $headers
-Remove-Variable token,secret,headers
+```html
+<link rel="stylesheet" href="chat.css?v=presence2">
 ```
 
-При необходимости временно отключите публичный чат, убрав подключение JS из Narod либо отозвав секрет Worker (сервер перестанет принимать новые запросы; для немедленного отключения уже подключённых клиентов потребуется остановить/изменить backend). Откат Pages делается в Deployments; откат frontend не удаляет Worker или его историю.
+и перед `</body>`:
 
-## 8. Проверка при подготовке
+```html
+<script src="chat-config.js?v=presence2"></script>
+<script src="chat.js?v=presence2"></script>
+```
 
-- Node 22: шесть тестов `node --test chat-worker/test/*.test.js` прошли. SQLite настоящая in-memory, транспорт/DO context имитированы; не тест Cloudflare runtime.
-- Chromium: фактическая разметка Narod + CSS + JS чата, встроенные в тестовую страницу с имитацией WebSocket; отправка, безопасный текст, сворачивание/закрытие/открытие, локализация, изоляция клавиатуры, ширина 390 px. Локальный HTTP заблокирован средой, полная интеграция сайта и живой Worker не проверялись.
-- Статическая сборка `node scripts/build-pages.mjs` и проверка состава.
-- Реальное развёртывание не выполнялось, аккаунт Cloudflare и origin не изменялись. Обязательна проверка двумя браузерами из разделов 3 и 6.
+## 4. Проверить в двух браузерах
 
-Официальная документация:
-- https://developers.cloudflare.com/durable-objects/get-started/
-- https://developers.cloudflare.com/workers/configuration/routing/custom-domains/
-- https://developers.cloudflare.com/workers/configuration/secrets/
-- https://developers.cloudflare.com/pages/get-started/git-integration/
-- https://developers.cloudflare.com/pages/get-started/direct-upload/
+- Открыть https://lanskikh.art/narod/ в обычном и приватном окне: разные имена, оба в списке.
+- Ввести текст, приблизить указатель к кнопке, нажать Enter, Tab/Space; на телефоне коснуться кнопки. Ничего не должно попадать в ленту, текст не исчезает от попытки отправки.
+- DevTools → Network → WS: адрес `wss://chat.lanskikh.art/presence`, статус 101, исходящие кадры только hello/ping. Ни одного кадра с черновиком.
+- Закрыть окно чата: пользователь исчезает у второго посетителя; открыть снова: восстанавливается имя. В основном портфолио окна нет.
+- Проверить /health и старые endpoints как выше.
+
+Локально: из chat-worker выполнить npm install, скопировать .dev.vars.example в .dev.vars, задать отдельный тестовый секрет, npm run dev. В другом терминале в корне выполнить `python -m http.server 8000 --bind 127.0.0.1`. Открыть http://127.0.0.1:8000/narod/ (не file://). Production secret не использовать локально.
+
+## 5. Проверки и границы
+
+Шесть Node/SQLite тестов прошли: строгий протокол, уникальность и восстановление имени, присутствие, отсутствие передачи/сохранения произвольного текста, удаление старой таблицы и закрытие старого протокола, HTTP routes и origins. Chromium тест с имитацией WebSocket прошёл для мыши и touch: кнопка перемещается, Enter и прямой вызов click не отправляют черновик, лента пуста, окно сворачивается/закрывается. Скрипт `tests/presence-browser.py` (Python Playwright, Chromium; CHROMIUM_PATH для пути к браузеру). Статическая сборка прошла. Реальный Worker не разворачивался и соединения двух реальных браузеров через Cloudflare не проверены.
+
+Сервис присутствия по-прежнему использует технические данные: случайный токен сессии и HMAC от IP для лимитов; имена назначает сервер. Сессии очищаются примерно через сутки после активности, служебные лимиты — через несколько минут. Это не обещание юридической безопасности или полной анонимности. Сам произвольный пользовательский текст штатным интерфейсом не передаётся, backend его не принимает как сообщение и не хранит. Любой внешний клиент технически может попытаться послать произвольные байты на сетевой endpoint; они отклоняются. Обработка технических данных и правовая квалификация сервиса требуют отдельной оценки.
