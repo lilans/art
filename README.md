@@ -54,4 +54,4 @@ Every main-site page has a **Narod / Народ** link in its header. The retro 
 
 ## Narod messenger — «Случаи»
 
-The floating public chat uses a separately deployed Cloudflare Worker and SQLite Durable Object. See [MESSENGER_DEPLOY_RU.md](MESSENGER_DEPLOY_RU.md) for setup, deployment and moderation. **Publish only `dist/`** (`node scripts/build-pages.mjs`), not the repository root. The Worker is deployed separately from `chat-worker/`.
+The floating presence-only installation has no messaging API. Drafts remain in the browser and the Send button evades interaction. The separately deployed Cloudflare Worker and SQLite Durable Object provide only assigned names and presence. See [MESSENGER_DEPLOY_RU.md](MESSENGER_DEPLOY_RU.md) for upgrade and deployment. **Publish only `dist/`** (`node scripts/build-pages.mjs`), not the repository root. The Worker is deployed separately from `chat-worker/`.
