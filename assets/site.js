@@ -6,6 +6,7 @@ const copy = {
       navArchive: "Archive",
       navInfo: "Info",
       navSnake: "Snake",
+      navFather: "Father",
       narodEdition: "Narod",
       mainEdition: "Main site",
       socialsInstagram: "Instagram",
@@ -65,6 +66,7 @@ const copy = {
       contactLabel: "Contacts",
       infoNote: "The photography and autofiction project Thank God You're Leaving is presented in the Work section."
     },
+    father: { title: "Father — Vladislav Lanskikh", description: "A playable memory.", heading: "Father" },
     snake: {
       title: "Snake — Vladislav Lanskikh",
       description: "Classic Snake game.",
@@ -139,6 +141,7 @@ const copy = {
       navArchive: "Архив",
       navInfo: "Инфо",
       navSnake: "Змейка",
+      navFather: "Отец",
       narodEdition: "Народ",
       mainEdition: "Основная версия",
       socialsInstagram: "Instagram",
@@ -198,6 +201,7 @@ const copy = {
       contactLabel: "Контакты",
       infoNote: "Фотографический и автофикциональный проект «Слава богу, что ты уедешь» представлен в разделе «Работы»."
     },
+    father: { title: "Отец — Владислав Ланских", description: "Игровое воспоминание.", heading: "Отец" },
     snake: {
       title: "Змейка — Владислав Ланских",
       description: "Классическая игра «Змейка».",
